@@ -1,24 +1,24 @@
 "use strict";
 
 /* ---------------------------------------------------------
-   Nav: sombra al hacer scroll + menú móvil
+   Navegación: Cambio al hacer Scroll y Menú Móvil
 --------------------------------------------------------- */
-(function(){
-  var nav = document.getElementById('siteNav');
-  var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('navMenu');
+(function() {
+  const nav = document.getElementById('siteNav');
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMenu');
 
-  window.addEventListener('scroll', function(){
-    nav.classList.toggle('scrolled', window.scrollY > 12);
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  toggle.addEventListener('click', function(){
-    var isOpen = menu.classList.toggle('is-open');
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
 
-  menu.querySelectorAll('a').forEach(function(link){
-    link.addEventListener('click', function(){
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       menu.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
     });
@@ -26,50 +26,51 @@
 })();
 
 /* ---------------------------------------------------------
-   Nav: resaltar el enlace de la sección visible
+   Navegación: Resaltado dinámico de sección activa
 --------------------------------------------------------- */
-(function(){
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-  if(!links.length || !('IntersectionObserver' in window)) return;
+(function() {
+  const links = Array.from(document.querySelectorAll('.nav-links a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
 
-  var map = {};
-  links.forEach(function(link){
-    var id = link.getAttribute('href').replace('#', '');
-    var section = document.getElementById(id);
-    if(section) map[id] = link;
+  const sectionMap = {};
+  links.forEach(link => {
+    const id = link.getAttribute('href').replace('#', '');
+    const section = document.getElementById(id);
+    if (section) sectionMap[id] = link;
   });
 
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      var link = map[entry.target.id];
-      if(!link) return;
-      if(entry.isIntersecting){
-        links.forEach(function(l){ l.classList.remove('is-active'); });
-        link.classList.add('is-active');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('is-active'));
+        const activeLink = sectionMap[entry.target.id];
+        if (activeLink) activeLink.classList.add('is-active');
       }
     });
-  }, { rootMargin: '-45% 0px -50% 0px' });
+  }, { rootMargin: '-40% 0px -50% 0px' });
 
-  Object.keys(map).forEach(function(id){
+  Object.keys(sectionMap).forEach(id => {
     observer.observe(document.getElementById(id));
   });
 })();
 
 /* ---------------------------------------------------------
-   Simulación interactiva del sistema R.U.T.A.
+   Motor de Simulación Interactivo R.U.T.A.
 --------------------------------------------------------- */
-(function(){
-  var state = { night: true, presence: false, alert: false };
+(function() {
+  const state = { night: true, presence: false, alert: false };
 
-  var els = {
+  const els = {
     skyDay: document.querySelector('.sky-day'),
     skyNight: document.querySelector('.sky-night'),
     stars: document.querySelector('.stars'),
+    lightBeam: document.querySelector('.light-beam'),
     bulb: document.querySelector('.bulb'),
     glow: document.querySelector('.bulb-glow'),
     figure: document.querySelector('.figure'),
     buzzer: document.querySelector('.buzzer-body'),
     rings: document.querySelectorAll('.alert-ring'),
+    statusPill: document.getElementById('statusPill'),
     modeName: document.getElementById('modeName'),
     modeDesc: document.getElementById('modeDesc'),
     sLdr: document.getElementById('sLdr'),
@@ -80,67 +81,82 @@
     tglAlert: document.getElementById('tglAlert')
   };
 
-  // Si el marcado de la simulación no está presente, no continuar.
-  if(!els.bulb || !els.tglNight) return;
+  if (!els.bulb || !els.tglNight) return;
 
-  function bindToggle(btn, key){
-    btn.addEventListener('click', function(){
+  function bindToggle(btn, key) {
+    btn.addEventListener('click', () => {
       state[key] = !state[key];
       btn.setAttribute('aria-pressed', String(state[key]));
       render();
     });
   }
+
   bindToggle(els.tglNight, 'night');
   bindToggle(els.tglPresence, 'presence');
   bindToggle(els.tglAlert, 'alert');
 
-  function render(){
-    // cielo y estrellas
+  function render() {
+    // Rendimiento de cielo y estrellas
     els.skyDay.style.opacity = state.night ? 0 : 1;
     els.skyNight.style.opacity = state.night ? 1 : 0;
     els.stars.style.opacity = state.night ? 1 : 0;
 
-    // brillo de la luminaria
-    var lampState = !state.night ? 'off' : (state.presence ? 'bright' : 'dim');
-    if(lampState === 'off'){
-      els.bulb.setAttribute('fill', '#5B3B14');
-      els.glow.style.opacity = 0.08;
+    // Estado del haz de luz y luminaria
+    const lampState = !state.night ? 'off' : (state.presence ? 'bright' : 'dim');
+
+    if (lampState === 'off') {
+      els.bulb.setAttribute('fill', '#475569');
+      els.glow.style.opacity = 0;
       els.glow.setAttribute('r', 10);
-    } else if(lampState === 'dim'){
-      els.bulb.setAttribute('fill', '#C98A3C');
+      if (els.lightBeam) els.lightBeam.style.opacity = 0;
+    } else if (lampState === 'dim') {
+      els.bulb.setAttribute('fill', '#EFA84B');
       els.glow.style.opacity = 0.35;
-      els.glow.setAttribute('r', 22);
+      els.glow.setAttribute('r', 28);
+      if (els.lightBeam) els.lightBeam.style.opacity = 0.15;
     } else {
-      els.bulb.setAttribute('fill', '#F6CB8B');
+      els.bulb.setAttribute('fill', '#FFF3BF');
       els.glow.style.opacity = 0.85;
-      els.glow.setAttribute('r', 42);
+      els.glow.setAttribute('r', 48);
+      if (els.lightBeam) els.lightBeam.style.opacity = 0.55;
     }
 
-    // figura caminando
-    els.figure.classList.toggle('shown', state.presence);
-    els.figure.classList.toggle('hidden', !state.presence);
+    // Figura del transeúnte
+    if (els.figure) {
+      els.figure.classList.toggle('shown', state.presence);
+      els.figure.classList.toggle('hidden', !state.presence);
+    }
 
-    // buzzer / alerta
-    els.buzzer.setAttribute('fill', state.alert ? '#D1495B' : '#22384F');
-    els.rings.forEach(function(r){ r.classList.toggle('active', state.alert); });
+    // Buzzer y Alertas
+    if (els.buzzer) {
+      els.buzzer.setAttribute('fill', state.alert ? '#E63946' : '#22384F');
+      els.rings.forEach(r => r.classList.toggle('active', state.alert));
+    }
 
-    // texto de estado
-    var mode, desc;
-    if(state.alert){
-      mode = 'Modo alerta y mantenimiento';
-      desc = 'El personal activó el botón de emergencia: el zumbador y la señal visual avisan en ese punto del sendero.';
-    } else if(!state.night){
-      mode = 'Reposo diurno';
-      desc = 'La fotorresistencia detecta luz natural suficiente: el sistema mantiene las luminarias apagadas.';
-    } else if(state.presence){
-      mode = 'Modo presencia';
-      desc = 'El sensor PIR detectó a alguien caminando por el sendero: la luminaria sube al 100% de intensidad.';
+    // Descripciones operativas de estado
+    let mode, desc, pillText = 'MODO ACTIVO';
+    
+    if (state.alert) {
+      mode = 'Modo Alerta y Mantenimiento';
+      desc = 'El personal de soporte activó la señal de asistencia: el buzzer emite alerta sonora y la farola emite indicación visual geolocalizada.';
+      pillText = 'ALERTA TÉCNICA';
+    } else if (!state.night) {
+      mode = 'Reposo Diurno Autosostenible';
+      desc = 'La fotorresistencia (LDR) registra luz solar suficiente: la luminaria permanece completamente apagada optimizando energía.';
+      pillText = 'DIA / REPOSO';
+    } else if (state.presence) {
+      mode = 'Modo Presencia Activa (100% Flujo)';
+      desc = 'El sensor PIR detectó un transeúnte en la ruta: la luminaria se eleva al 100% de potencia acompañando su recorrido seguro.';
+      pillText = 'DETECCIÓN PIR';
     } else {
-      mode = 'Modo ahorro de energía';
-      desc = 'Es de noche y el sendero está vacío: la luminaria baja su intensidad para ahorrar energía.';
+      mode = 'Modo Ahorro de Energía (20% - 30%)';
+      desc = 'Es de noche y el sendero está desierto: la iluminación atenúa su flujo al mínimo para conservar energía sin dejar a oscuras la ruta.';
+      pillText = 'AHORRO NOCTURNO';
     }
+
     els.modeName.textContent = mode;
     els.modeDesc.textContent = desc;
+    if (els.statusPill) els.statusPill.textContent = pillText;
 
     els.sLdr.textContent = state.night ? 'oscuridad' : 'luz diurna';
     els.sPir.textContent = state.presence ? 'movimiento' : 'sin movimiento';
