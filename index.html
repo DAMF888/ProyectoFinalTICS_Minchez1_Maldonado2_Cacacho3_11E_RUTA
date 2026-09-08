@@ -6,7 +6,7 @@
   <title>R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma | IRTRA Petapa</title>
   <meta name="description" content="R.U.T.A. es un sistema inteligente de iluminación automatizada para los senderos de IRTRA Petapa. Regula el flujo luminoso según la presencia de visitantes y la luz ambiental.">
   
-  <!-- Tipografías de alta definición -->
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
 </head>
 <body>
 
-  <!-- ============ GLOW AMBIENTAL DE FONDO ============ -->
+  <!-- GLOW AMBIENTAL DE FONDO -->
   <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
   <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
 
-  <!-- ============ NAVEGACIÓN PRINCIPAL ============ -->
+  <!-- NAVEGACIÓN PRINCIPAL -->
   <nav class="nav" id="siteNav">
     <div class="wrap nav-row">
       <a href="#inicio" class="brand">
@@ -46,7 +46,7 @@
     </div>
   </nav>
 
-  <!-- ============ HERO & SIMULADOR ============ -->
+  <!-- HERO & SIMULADOR -->
   <section class="hero band-night has-grain" id="inicio">
     <div class="wrap hero-row">
       <div class="hero-copy">
@@ -95,7 +95,6 @@
           <div class="scene-frame">
             <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Simulación gráfica interactiva de la luminaria R.U.T.A.">
               <defs>
-                <!-- Degradado de brillo de farola -->
                 <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#FFC107" stop-opacity="1"/>
                   <stop offset="30%" stop-color="#FF9800" stop-opacity="0.6"/>
@@ -103,30 +102,25 @@
                   <stop offset="100%" stop-color="#FF5722" stop-opacity="0"/>
                 </radialGradient>
 
-                <!-- Haz cónico de iluminación hacia el suelo -->
                 <linearGradient id="lightBeam" x1="0.5" y1="0" x2="0.5" y2="1">
                   <stop offset="0%" stop-color="#FFE082" stop-opacity="0.45"/>
                   <stop offset="100%" stop-color="#FFE082" stop-opacity="0"/>
                 </linearGradient>
 
-                <!-- Degradado de pasto/terreno -->
                 <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#1B4332"/>
                   <stop offset="100%" stop-color="#0B2519"/>
                 </linearGradient>
 
-                <!-- Sombra proyectada del caminante -->
                 <radialGradient id="shadowGrad" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#000000" stop-opacity="0.6"/>
                   <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
                 </radialGradient>
               </defs>
 
-              <!-- Cielo Día / Noche -->
               <rect class="sky-day" x="0" y="0" width="400" height="280" fill="#74C0FC" opacity="0"/>
               <rect class="sky-night" x="0" y="0" width="400" height="280" fill="#07111E" opacity="1"/>
 
-              <!-- Estrellas -->
               <g class="stars" opacity="1">
                 <circle cx="35" cy="25" r="1.2" fill="#FFF" opacity="0.9"/>
                 <circle cx="85" cy="45" r="0.9" fill="#FFF" opacity="0.6"/>
@@ -138,43 +132,27 @@
                 <circle cx="65" cy="75" r="1.3" fill="#FFF" opacity="0.85"/>
               </g>
 
-              <!-- Siluetas de árboles de fondo (Estilo IRTRA Petapa) -->
               <g fill="#11291F" opacity="0.9">
-                <!-- Árbol izquierdo -->
                 <rect x="42" y="140" width="6" height="70" rx="2" fill="#0A1812"/>
                 <path d="M45,110 C25,110 20,150 45,150 C70,150 65,110 45,110 Z"/>
-                <!-- Árbol derecho -->
                 <rect x="348" y="130" width="8" height="80" rx="2" fill="#0A1812"/>
                 <path d="M352,95 C325,95 320,140 352,140 C385,140 380,95 352,95 Z"/>
               </g>
 
-              <!-- Terreno y Sendero en Curva -->
               <path d="M0,280 L0,210 C130,190 270,235 400,205 L400,280 Z" fill="url(#groundGrad)"/>
-              
-              <!-- Sendero adoquinado -->
               <path d="M0,225 C130,200 270,245 400,218 L400,280 L0,280 Z" fill="#2D3748" opacity="0.5"/>
               <path d="M0,225 C130,200 270,245 400,218" fill="none" stroke="#52B788" stroke-opacity="0.3" stroke-width="3" stroke-dasharray="6 8"/>
 
-              <!-- Haz de luz sobre el sendero -->
               <polygon class="light-beam" points="205,80 120,260 290,260" fill="url(#lightBeam)" opacity="0.3"/>
 
-              <!-- Poste de Luz y Farola -->
               <g transform="translate(205,75)">
-                <!-- Halo de luz radiante -->
                 <circle class="bulb-glow" cx="-24" cy="7" r="22" fill="url(#glowGrad)" opacity="0.35"/>
-
-                <!-- Estructura metálica del poste -->
                 <rect x="-3" y="0" width="6" height="135" rx="3" fill="#1E293B"/>
                 <rect x="-14" y="130" width="28" height="8" rx="2" fill="#0F172A"/>
-                
-                <!-- Brazo ornamental de la farola -->
                 <path d="M-3,10 C-15,10 -24,4 -24,0" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
-                
-                <!-- Luminaria / Foco -->
                 <path d="M-31,-3 L-17,-3 L-20,-10 L-28,-10 Z" fill="#334155"/>
                 <circle class="bulb" cx="-24" cy="2" r="6" fill="#C98A3C"/>
 
-                <!-- Módulo Buzzer / Alarma acoplado -->
                 <g transform="translate(6,50)">
                   <rect class="buzzer-body" x="0" y="0" width="16" height="18" rx="3" fill="#22384F" stroke="#334155" stroke-width="1"/>
                   <circle cx="8" cy="9" r="3.5" fill="#0E1B30"/>
@@ -183,7 +161,6 @@
                 </g>
               </g>
 
-              <!-- Figura Peatonal Silueta -->
               <g class="figure hidden" transform="translate(135,195)">
                 <ellipse cx="0" cy="38" rx="14" ry="4" fill="url(#shadowGrad)"/>
                 <circle cx="0" cy="0" r="6" fill="#F3EFE4"/>
@@ -192,7 +169,6 @@
             </svg>
           </div>
 
-          <!-- Muestra de Estado de Telemetría -->
           <div class="scene-status">
             <div class="status-header">
               <span class="status-pill" id="statusPill">MODO ACTIVO</span>
@@ -216,7 +192,6 @@
             </div>
           </div>
 
-          <!-- Controles interactivos -->
           <div class="scene-controls">
             <div class="control-row">
               <div class="control-info">
@@ -242,23 +217,22 @@
               <button class="switch is-alert" id="tglAlert" aria-pressed="false" aria-label="Alternar alerta de mantenimiento"></button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ EL PROBLEMA ============ -->
+  <!-- EL PROBLEMA -->
   <section class="problem band-day section-pad" id="problema">
     <div class="wrap problem-grid">
       <div class="problem-content">
         <div class="section-tag-light">Diagnóstico de Infraestructura</div>
         <h2>Las luminarias del parque no distinguen entre un sendero lleno y uno desierto.</h2>
         <p class="problem-text">
-          En los senderos de plazas de <strong>IRTRA Petapa</strong>, como Plaza Mi Fiesta o las vías interconectadas del parque, la iluminación permanece encendida a su máxima potencia durante toda la jornada nocturna, sin importar si transitan cientos de familias o si no hay absolutamente nadie.
+          En los senderos de plazas de <strong>IRTRA Petapa</strong>, la iluminación permanece encendida a su máxima potencia durante toda la jornada nocturna, sin importar si transitan cientos de familias o si no hay nadie.
         </p>
         <p class="problem-text">
-          Esta constancia genera un consumo constante ineficiente. <strong>R.U.T.A.</strong> transforma estas farolas en nodos inteligentes capaces de percibir la presencia real de las personas y reaccionar de forma automática instantánea.
+          <strong>R.U.T.A.</strong> transforma estas farolas en nodos inteligentes capaces de percibir la presencia real de las personas y reaccionar de forma automática instantánea.
         </p>
       </div>
 
@@ -282,7 +256,7 @@
     </div>
   </section>
 
-  <!-- ============ ARQUITECTURA DEL SISTEMA ============ -->
+  <!-- ARQUITECTURA DEL SISTEMA -->
   <section class="architecture band-night section-pad has-grain" id="arquitectura">
     <div class="wrap">
       <div class="section-head text-center">
@@ -292,67 +266,108 @@
       </div>
 
       <div class="diagram-card glass-panel">
-        <svg viewBox="0 0 700 340" class="diagram-svg" role="img" aria-label="Diagrama de flujo de arquitectura R.U.T.A.">
+        <svg viewBox="0 0 800 380" class="diagram-svg-v2" role="img" aria-label="Diagrama de flujo de arquitectura R.U.T.A.">
           <defs>
-            <marker id="arrowGlow" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L8,5 L0,9 Z" fill="#EFA84B"/>
+            <filter id="coreGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            <linearGradient id="gradInput" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#52B788" />
+              <stop offset="100%" stop-color="#EFA84B" />
+            </linearGradient>
+
+            <linearGradient id="gradOutput" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#EFA84B" />
+              <stop offset="100%" stop-color="#F6CB8B" />
+            </linearGradient>
+
+            <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,1 L7,4 L0,7 Z" fill="#EFA84B" />
             </marker>
           </defs>
 
-          <!-- Líneas de Conexión -->
-          <path d="M170,90 L280,145" stroke="#3D8C77" stroke-width="2" stroke-dasharray="4 4" class="pulse-line"/>
-          <line x1="170" y1="90" x2="280" y2="145" stroke="#3D8C77" stroke-width="2" marker-end="url(#arrowGlow)"/>
-          
-          <path d="M530,90 L420,145" stroke="#3D8C77" stroke-width="2" stroke-dasharray="4 4" class="pulse-line"/>
-          <line x1="530" y1="90" x2="420" y2="145" stroke="#3D8C77" stroke-width="2" marker-end="url(#arrowGlow)"/>
+          <!-- CONEXIONES Y PULSO -->
+          <g class="diagram-cables">
+            <path d="M 290 75 C 340 75, 330 110, 330 140" fill="none" stroke="rgba(82, 183, 136, 0.25)" stroke-width="3" />
+            <path d="M 290 75 C 340 75, 330 110, 330 140" fill="none" stroke="url(#gradInput)" stroke-width="2.5" stroke-dasharray="6 8" class="cable-pulse" marker-end="url(#arrowHead)" />
 
-          <line x1="300" y1="210" x2="170" y2="255" stroke="#EFA84B" stroke-width="2" marker-end="url(#arrowGlow)"/>
-          <line x1="400" y1="210" x2="530" y2="255" stroke="#EFA84B" stroke-width="2" marker-end="url(#arrowGlow)"/>
+            <path d="M 510 75 C 460 75, 470 110, 470 140" fill="none" stroke="rgba(82, 183, 136, 0.25)" stroke-width="3" />
+            <path d="M 510 75 C 460 75, 470 110, 470 140" fill="none" stroke="url(#gradInput)" stroke-width="2.5" stroke-dasharray="6 8" class="cable-pulse" marker-end="url(#arrowHead)" />
 
-          <!-- NODOS DE ENTRADA -->
-          <g class="node-in" transform="translate(50,40)">
-            <rect x="0" y="0" width="180" height="70" rx="12"/>
-            <text x="90" y="32" class="node-title">Fotorresistencia</text>
-            <text x="90" y="50" class="node-sub">entrada · nivel de luz ambiental</text>
+            <path d="M 330 240 C 330 270, 340 295, 290 295" fill="none" stroke="rgba(239, 168, 75, 0.25)" stroke-width="3" />
+            <path d="M 330 240 C 330 270, 340 295, 290 295" fill="none" stroke="url(#gradOutput)" stroke-width="2.5" stroke-dasharray="6 8" class="cable-pulse" marker-end="url(#arrowHead)" />
+
+            <path d="M 470 240 C 470 270, 460 295, 510 295" fill="none" stroke="rgba(239, 168, 75, 0.25)" stroke-width="3" />
+            <path d="M 470 240 C 470 270, 460 295, 510 295" fill="none" stroke="url(#gradOutput)" stroke-width="2.5" stroke-dasharray="6 8" class="cable-pulse" marker-end="url(#arrowHead)" />
           </g>
 
-          <g class="node-in" transform="translate(470,40)">
-            <rect x="0" y="0" width="180" height="70" rx="12"/>
-            <text x="90" y="32" class="node-title">Sensor PIR</text>
-            <text x="90" y="50" class="node-sub">entrada · movimiento transeúnte</text>
+          <!-- ENTRADA 1 -->
+          <g class="node node-in" transform="translate(50, 30)">
+            <rect width="240" height="90" rx="14" class="node-bg" />
+            <rect x="12" y="12" width="28" height="20" rx="4" class="tag-in" />
+            <text x="26" y="26" class="tag-text">IN</text>
+            <text x="50" y="27" class="node-title">Fotorresistencia</text>
+            <path d="M22 62 A 7 7 0 1 0 22 48 A 7 7 0 1 0 22 62 M22 42 L22 44 M22 66 L22 68 M11 55 L13 55 M31 55 L33 55" stroke="#52B788" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <text x="44" y="54" class="node-sub">Monitoreo continuo</text>
+            <text x="44" y="68" class="node-sub">de luz ambiental (Lux)</text>
+          </g>
+
+          <!-- ENTRADA 2 -->
+          <g class="node node-in" transform="translate(510, 30)">
+            <rect width="240" height="90" rx="14" class="node-bg" />
+            <rect x="12" y="12" width="28" height="20" rx="4" class="tag-in" />
+            <text x="26" y="26" class="tag-text">IN</text>
+            <text x="50" y="27" class="node-title">Sensor PIR</text>
+            <path d="M14 55 C 18 48, 22 48, 26 55 C 30 62, 34 62, 38 55" stroke="#52B788" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <text x="44" y="54" class="node-sub">Detección de presencia</text>
+            <text x="44" y="68" class="node-sub">y tránsito peatonal</text>
           </g>
 
           <!-- NODO CENTRAL -->
-          <g class="node-core" transform="translate(240,135)">
-            <rect x="0" y="0" width="220" height="80" rx="14"/>
-            <text x="110" y="36" class="node-title node-title-core">Unidad de Control</text>
-            <text x="110" y="56" class="node-sub node-sub-core">procesa lógica y activa modos</text>
+          <g class="node node-core" transform="translate(270, 140)" filter="url(#coreGlow)">
+            <rect width="260" height="100" rx="16" class="node-core-bg" />
+            <rect x="20" y="32" width="36" height="36" rx="6" fill="none" stroke="#050B14" stroke-width="2.5"/>
+            <path d="M26 26 L26 32 M38 26 L38 32 M50 26 L50 32 M26 68 L26 74 M38 68 L38 74 M50 68 L50 74 M14 38 L20 38 M14 50 L20 50 M56 38 L62 38 M56 50 L62 50" stroke="#050B14" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="70" y="48" class="node-core-title">Unidad de Control</text>
+            <text x="70" y="66" class="node-core-sub">Procesamiento lógico de estados</text>
+            <text x="70" y="80" class="node-core-sub">y regulación de modos en tiempo real</text>
           </g>
 
-          <!-- NODOS DE SALIDA -->
-          <g class="node-out" transform="translate(50,230)">
-            <rect x="0" y="0" width="180" height="70" rx="12"/>
-            <text x="90" y="32" class="node-title">LED de Sendero</text>
-            <text x="90" y="50" class="node-sub">salida · intensidad adaptable</text>
+          <!-- SALIDA 1 -->
+          <g class="node node-out" transform="translate(50, 250)">
+            <rect width="240" height="90" rx="14" class="node-bg" />
+            <rect x="12" y="12" width="36" height="20" rx="4" class="tag-out" />
+            <text x="30" y="26" class="tag-text">OUT</text>
+            <text x="56" y="27" class="node-title">LED de Sendero</text>
+            <path d="M22 46 C 17 46, 14 50, 14 55 C 14 60, 18 63, 19 68 L25 68 C 26 63, 30 60, 30 55 C 30 50, 27 46, 22 46 Z M19 72 L25 72" stroke="#EFA84B" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <text x="44" y="54" class="node-sub">Iluminación dimable</text>
+            <text x="44" y="68" class="node-sub">Ahorro (30%) / Presencia (100%)</text>
           </g>
 
-          <g class="node-out" transform="translate(470,230)">
-            <rect x="0" y="0" width="180" height="70" rx="12"/>
-            <text x="90" y="32" class="node-title">Buzzer Sonora</text>
-            <text x="90" y="50" class="node-sub">salida · alerta de mantenimiento</text>
+          <!-- SALIDA 2 -->
+          <g class="node node-out" transform="translate(510, 250)">
+            <rect width="240" height="90" rx="14" class="node-bg" />
+            <rect x="12" y="12" width="36" height="20" rx="4" class="tag-out" />
+            <text x="30" y="26" class="tag-text">OUT</text>
+            <text x="56" y="27" class="node-title">Buzzer Sonora</text>
+            <path d="M14 52 L18 52 L24 47 L24 63 L18 58 L14 58 Z M28 50 C 30 52, 30 58, 28 60" stroke="#EFA84B" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <text x="44" y="54" class="node-sub">Alarma sonora de soporte</text>
+            <text x="44" y="68" class="node-sub">y aviso de mantenimiento</text>
           </g>
         </svg>
 
         <div class="diagram-legend">
-          <div class="legend-item"><span class="dot dot-in"></span> <strong>Entradas:</strong> Monitoreo continuo de lux y movimiento en el sendero.</div>
-          <div class="legend-item"><span class="dot dot-core"></span> <strong>Microcontrolador:</strong> Algoritmo de comparación y cambio de estado.</div>
-          <div class="legend-item"><span class="dot dot-out"></span> <strong>Salidas:</strong> Ajuste automático de iluminación y señal sonora.</div>
+          <div class="legend-item"><span class="dot dot-in"></span> <strong>Sensores de Entrada:</strong> Lectura constante del entorno físico.</div>
+          <div class="legend-item"><span class="dot dot-core"></span> <strong>Procesamiento Central:</strong> Evaluación instantánea de reglas.</div>
+          <div class="legend-item"><span class="dot dot-out"></span> <strong>Actuadores de Salida:</strong> Respuesta dinámica en el parque.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CÓMO FUNCIONA ============ -->
+  <!-- CÓMO FUNCIONA -->
   <section class="how band-day section-pad" id="como-funciona">
     <div class="wrap">
       <div class="section-head">
@@ -394,7 +409,6 @@
           <div class="step-body">
             <h3>Modo Alerta y Mantenimiento</h3>
             <p>Al pulsar el botón manual de soporte por parte del personal, se activa una alarma de bajo volumen y una señal visual geolocalizada en el tramo de sendero.</p>
-
             <span class="step-tag alert-tag">Botón Manual + Buzzer</span>
           </div>
         </div>
@@ -402,7 +416,7 @@
     </div>
   </section>
 
-  <!-- ============ COMPONENTES ============ -->
+  <!-- COMPONENTES -->
   <section class="components band-night section-pad has-grain" id="componentes">
     <div class="wrap">
       <div class="section-head text-center">
@@ -448,7 +462,7 @@
     </div>
   </section>
 
-  <!-- ============ ESPECIFICACIONES TÉCNICAS ============ -->
+  <!-- ESPECIFICACIONES TÉCNICAS -->
   <section class="specs band-day section-pad" id="especificaciones">
     <div class="wrap">
       <div class="section-head">
@@ -492,7 +506,7 @@
     </div>
   </section>
 
-  <!-- ============ IMPACTO ODS ============ -->
+  <!-- IMPACTO ODS -->
   <section class="ods band-night section-pad has-grain" id="impacto">
     <div class="wrap">
       <div class="section-head text-center">
@@ -521,7 +535,7 @@
     </div>
   </section>
 
-  <!-- ============ EQUIPO DE TRABAJO ============ -->
+  <!-- EQUIPO DE TRABAJO -->
   <section class="team band-day section-pad" id="equipo">
     <div class="wrap">
       <div class="section-head text-center">
@@ -561,7 +575,7 @@
     </div>
   </section>
 
-  <!-- ============ PIE DE PÁGINA ============ -->
+  <!-- PIE DE PÁGINA -->
   <footer class="footer band-night">
     <div class="wrap footer-row">
       <div class="footer-brand-group">
