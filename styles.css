@@ -1,6 +1,6 @@
 /* ==========================================================================
    R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma
-   Hoja de Estilos de Alta Definición y Estética Orgánica
+   Hoja de Estilos Completa
    ========================================================================== */
 
 :root {
@@ -40,7 +40,7 @@
   --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
 }
 
-/* ---------- Reset & Base ---------- */
+/* Reset & Base */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -64,7 +64,7 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 
-/* ---------- Fondos y Texturas Ambientales ---------- */
+/* Fondos y Texturas */
 .bg-glow {
   position: fixed;
   width: 500px;
@@ -99,7 +99,6 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .section-head h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 700; }
 .section-head p { margin-top: 14px; font-size: 1.08rem; }
 
-/* Etiquetas de Sección */
 .section-tag-dark, .section-tag-light {
   display: inline-block;
   font-family: var(--font-mono);
@@ -113,7 +112,6 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .section-tag-dark { background: rgba(82, 183, 136, 0.15); color: var(--teal-300); border: 1px solid rgba(82, 183, 136, 0.3); }
 .section-tag-light { background: rgba(27, 67, 50, 0.1); color: var(--teal-700); border: 1px solid rgba(27, 67, 50, 0.2); }
 
-/* Texture Grain */
 .has-grain::before {
   content: "";
   position: absolute; inset: 0;
@@ -123,7 +121,6 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 }
 .has-grain > * { position: relative; z-index: 1; }
 
-/* ---------- Tarjetas de Vidrio (Glassmorphism) ---------- */
 .glass-panel {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -144,7 +141,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
   box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1);
 }
 
-/* ---------- Navegación ---------- */
+/* Navegación */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 0;
@@ -190,7 +187,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
   .nav-links a { font-size: 1.1rem; padding: 10px 0; display: block; }
 }
 
-/* ---------- Hero ---------- */
+/* Hero */
 .hero { padding: 160px 0 100px; overflow: hidden; }
 .hero-row { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; }
 @media (max-width: 960px) {
@@ -243,7 +240,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .reveal-5 { animation-delay: 0.45s; }
 @keyframes revealIn { to { opacity: 1; transform: translateY(0); } }
 
-/* ---------- Simulador SVG ---------- */
+/* Simulador SVG */
 .scene-card {
   background: var(--navy-900);
   border: 1px solid var(--glass-border);
@@ -294,7 +291,6 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .control-label { font-size: 0.88rem; font-weight: 500; color: var(--paper); }
 .control-info small { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(248, 246, 240, 0.45); }
 
-/* Switches interactivos */
 .switch {
   width: 48px; height: 26px; border-radius: 20px; background: var(--navy-700);
   border: 1px solid var(--line-on-dark); position: relative; cursor: pointer; flex-shrink: 0;
@@ -308,7 +304,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .switch[aria-pressed="true"]::after { transform: translateX(22px); }
 .switch.is-alert[aria-pressed="true"] { background: var(--alert-500); }
 
-/* ---------- Problema ---------- */
+/* Problema */
 .problem-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 50px; align-items: start; }
 @media (max-width: 880px) { .problem-grid { grid-template-columns: 1fr; } }
 
@@ -325,21 +321,74 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .stat-badge.success { background: #D1FAE5; color: #065F46; }
 .stat-label { margin-top: 14px; font-size: 0.95rem; color: var(--ink-soft); }
 
-/* ---------- Arquitectura SVG ---------- */
+/* Arquitectura SVG (Diagrama Rediseñado V2) */
 .diagram-card { padding: 40px 30px; }
-.diagram-svg { width: 100%; height: auto; overflow: visible; }
+.diagram-svg-v2 { width: 100%; height: auto; overflow: visible; }
 
-.diagram-svg .node-in rect { fill: var(--navy-800); stroke: var(--teal-300); stroke-width: 1.5; }
-.diagram-svg .node-out rect { fill: var(--navy-800); stroke: var(--amber-500); stroke-width: 1.5; }
-.diagram-svg .node-core rect { fill: var(--amber-500); stroke: none; filter: drop-shadow(0 0 12px rgba(239, 168, 75, 0.4)); }
+.cable-pulse { animation: cableFlow 1.5s linear infinite; }
+@keyframes cableFlow {
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
+}
 
-.diagram-svg .node-title { font-family: var(--font-head); font-size: 14px; font-weight: 600; fill: var(--paper); text-anchor: middle; }
-.diagram-svg .node-title-core { fill: var(--navy-950); font-weight: 700; }
-.diagram-svg .node-sub { font-family: var(--font-mono); font-size: 10.5px; fill: rgba(248, 246, 240, 0.6); text-anchor: middle; }
-.diagram-svg .node-sub-core { fill: rgba(5, 11, 20, 0.75); }
+.diagram-svg-v2 .node-bg {
+  fill: #0B1726;
+  stroke: var(--line-on-dark);
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
 
-.pulse-line { animation: dashPulse 2s linear infinite; }
-@keyframes dashPulse { to { stroke-dashoffset: -16; } }
+.diagram-svg-v2 .node:hover .node-bg {
+  stroke-width: 2;
+  transform: translateY(-2px);
+}
+
+.diagram-svg-v2 .node-in:hover .node-bg { stroke: var(--teal-300); }
+.diagram-svg-v2 .node-out:hover .node-bg { stroke: var(--amber-500); }
+
+.diagram-svg-v2 .tag-in { fill: rgba(82, 183, 136, 0.2); }
+.diagram-svg-v2 .tag-out { fill: rgba(239, 168, 75, 0.2); }
+
+.diagram-svg-v2 .tag-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--paper);
+  text-anchor: middle;
+}
+
+.diagram-svg-v2 .node-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--paper);
+}
+
+.diagram-svg-v2 .node-sub {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  fill: rgba(248, 246, 240, 0.65);
+}
+
+.diagram-svg-v2 .node-core-bg {
+  fill: var(--amber-500);
+  stroke: #FFF3BF;
+  stroke-width: 2;
+}
+
+.diagram-svg-v2 .node-core-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  fill: #050B14;
+}
+
+.diagram-svg-v2 .node-core-sub {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  fill: rgba(5, 11, 20, 0.85);
+}
 
 .diagram-legend { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line-on-dark); font-size: 0.88rem; color: rgba(248, 246, 240, 0.7); }
 .legend-item { display: flex; align-items: center; gap: 8px; }
@@ -348,7 +397,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .dot-core { background: var(--amber-500); }
 .dot-out { background: var(--amber-300); }
 
-/* ---------- Cómo Funciona (Timeline) ---------- */
+/* Timeline */
 .timeline { position: relative; max-width: 800px; margin: 0 auto; }
 .timeline::before {
   content: ""; position: absolute; left: 24px; top: 10px; bottom: 10px; width: 2px;
@@ -372,7 +421,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 }
 .step-tag.alert-tag { color: var(--alert-500); background: rgba(230, 57, 70, 0.1); }
 
-/* ---------- Componentes ---------- */
+/* Componentes */
 .components-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 @media (max-width: 900px) { .components-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .components-grid { grid-template-columns: 1fr; } }
@@ -392,7 +441,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .component-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--paper); }
 .component-card p { margin-top: 10px; font-size: 0.92rem; color: rgba(248, 246, 240, 0.7); }
 
-/* ---------- Especificaciones ---------- */
+/* Especificaciones */
 .specs-table-wrapper { padding: 10px; overflow-x: auto; }
 .specs-table { min-width: 600px; }
 .specs-row { display: grid; grid-template-columns: 1fr 1.8fr; padding: 18px 24px; border-bottom: 1px solid var(--line-on-light); font-size: 0.95rem; }
@@ -400,7 +449,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .specs-head { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); background: var(--paper-dim); border-radius: var(--radius-sm); }
 .spec-name { font-weight: 600; color: var(--ink); }
 
-/* ---------- ODS ---------- */
+/* ODS */
 .ods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 @media (max-width: 720px) { .ods-grid { grid-template-columns: 1fr; } }
 
@@ -414,7 +463,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .ods-body h3 { font-size: 1.15rem; font-weight: 600; color: var(--paper); }
 .ods-body p { margin-top: 8px; font-size: 0.95rem; color: rgba(248, 246, 240, 0.75); }
 
-/* ---------- Equipo ---------- */
+/* Equipo */
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; } }
 
@@ -428,7 +477,7 @@ section { position: relative; scroll-margin-top: 80px; z-index: 1; }
 .team-role { font-size: 0.88rem; color: var(--ink-soft); margin-top: 2px; }
 .team-tag { display: inline-block; font-family: var(--font-mono); font-size: 0.7rem; color: var(--teal-700); background: rgba(45, 106, 79, 0.1); padding: 2px 8px; border-radius: 4px; margin-top: 6px; }
 
-/* ---------- Pie de Página ---------- */
+/* Pie de Página */
 .footer { border-top: 1px solid var(--line-on-dark); padding: 60px 0 40px; }
 .footer-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
 .footer-brand { font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; color: var(--paper); }
