@@ -1,1 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma</title>
+<meta name="description" content="R.U.T.A. es un sistema de iluminación automática para los senderos de IRTRA Petapa: baja su intensidad cuando el sendero está vacío y sube al 100% cuando detecta presencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+  <nav class="nav" id="siteNav">
+    <div class="wrap nav-row">
+      <a href="#inicio" class="brand">R.U.T.A. <small>IRTRA Petapa</small></a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#arquitectura">Arquitectura</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#componentes">Componentes</a></li>
+        <li><a href="#especificaciones">Especificaciones</a></li>
+        <li><a href="#impacto">Impacto</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero band-night has-grain" id="inicio">
+    <div class="wrap hero-row">
+      <div class="hero-copy">
+        <p class="reveal reveal-1 hero-eyebrow">Proyecto final de Tecnología · 5to Bachillerato</p>
+        <h1 class="reveal reveal-2">Cuando el sendero se queda solo, la luz baja. Cuando alguien pasa, se enciende.</h1>
+        <p class="hero-lead reveal reveal-3">
+          R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma — regula la iluminación de
+          los senderos de plazas de IRTRA Petapa según la oscuridad y el movimiento real de
+          personas, en vez de mantener las luminarias al máximo toda la noche.
+        </p>
+        <div class="hero-actions reveal reveal-4">
+          <a href="#como-funciona" class="btn btn-solid">Cómo funciona</a>
+          <a href="#arquitectura" class="btn btn-ghost">Ver arquitectura</a>
+        </div>
+        <div class="hero-credit reveal reveal-5">
+          <span>Jose Maldonado</span>
+          <span aria-hidden="true">·</span>
+          <span>Douglas Mínchez</span>
+          <span aria-hidden="true">·</span>
+          <span>Santiago Cacacho</span>
+        </div>
+      </div>
+
+      <div class="hero-scene reveal reveal-4">
+        <div class="scene-card">
+          <div class="scene-frame">
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Simulación del sendero iluminado por R.U.T.A.">
+              <defs>
+                <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#F0A94E" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#F0A94E" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1F3A33"/>
+                  <stop offset="100%" stop-color="#152722"/>
+                </linearGradient>
+              </defs>
+
+              <rect class="sky-day" x="0" y="0" width="400" height="300" fill="#BFD9E8" opacity="0"/>
+              <rect class="sky-night" x="0" y="0" width="400" height="300" fill="#0B1526" opacity="1"/>
+              <g class="stars" opacity="1">
+                <circle cx="40" cy="30" r="1.3" fill="#F3EFE4"/>
+                <circle cx="90" cy="55" r="1" fill="#F3EFE4"/>
+                <circle cx="150" cy="25" r="1.2" fill="#F3EFE4"/>
+                <circle cx="230" cy="40" r="1" fill="#F3EFE4"/>
+                <circle cx="300" cy="20" r="1.4" fill="#F3EFE4"/>
+                <circle cx="350" cy="60" r="1" fill="#F3EFE4"/>
+                <circle cx="60" cy="80" r="1" fill="#F3EFE4"/>
+                <circle cx="370" cy="95" r="1.2" fill="#F3EFE4"/>
+              </g>
+
+              <g fill="#1E3A33">
+                <rect x="34" y="150" width="6" height="60" fill="#16281F"/>
+                <circle cx="37" cy="140" r="26"/>
+                <rect x="356" y="140" width="7" height="70" fill="#16281F"/>
+                <circle cx="359" cy="128" r="30"/>
+              </g>
+
+              <path d="M0,300 L0,230 C120,205 280,255 400,225 L400,300 Z" fill="url(#groundGrad)"/>
+              <path d="M0,238 C120,214 280,262 400,234" fill="none" stroke="#3D8C77" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="6 8"/>
+
+              <g transform="translate(205,90)">
+                <circle class="bulb-glow" cx="0" cy="0" r="16" fill="url(#glow)" opacity="0.25"/>
+                <rect x="-3" y="0" width="6" height="118" fill="#1B2B3C"/>
+                <rect x="-16" y="112" width="32" height="8" rx="2" fill="#1B2B3C"/>
+                <path d="M-3,4 L-24,4 L-24,10 L-3,10" fill="#1B2B3C"/>
+                <circle class="bulb" cx="-24" cy="7" r="7" fill="#5B3B14"/>
+
+                <g transform="translate(6,44)">
+                  <rect class="buzzer-body" x="0" y="0" width="14" height="16" rx="2" fill="#22384F"/>
+                  <circle cx="7" cy="8" r="3" fill="#0E1B30"/>
+                  <circle class="alert-ring r1" cx="7" cy="8" r="10" fill="none" stroke="#D1495B" stroke-width="1.5"/>
+                  <circle class="alert-ring r2" cx="7" cy="8" r="10" fill="none" stroke="#D1495B" stroke-width="1.5"/>
+                </g>
+              </g>
+
+              <g class="figure hidden" transform="translate(120,208)">
+                <circle cx="0" cy="0" r="5.5" fill="#F3EFE4"/>
+                <path d="M0,5 C-6,10 -6,26 -4,34 M0,5 C6,10 6,26 4,34" stroke="#F3EFE4" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M0,10 L-9,20 M0,10 L9,18" stroke="#F3EFE4" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="scene-status">
+            <p class="status-mode" id="modeName">Modo ahorro de energía</p>
+            <p class="status-desc" id="modeDesc">Es de noche y el sendero está vacío: la luminaria baja su intensidad para ahorrar energía.</p>
+            <div class="status-sensors">
+              <span>LDR: <b id="sLdr">oscuridad</b></span>
+              <span>PIR: <b id="sPir">sin movimiento</b></span>
+              <span>Buzzer: <b id="sBuz">inactivo</b></span>
+            </div>
+          </div>
+
+          <div class="scene-controls">
+            <div class="control-row">
+              <span class="control-label">Anochecer<small>fotorresistencia (LDR)</small></span>
+              <button class="switch" id="tglNight" aria-pressed="true" aria-label="Alternar entre día y noche"></button>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Alguien camina por el sendero<small>sensor de movimiento (PIR)</small></span>
+              <button class="switch" id="tglPresence" aria-pressed="false" aria-label="Alternar presencia de una persona"></button>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Botón de mantenimiento<small>alarma y aviso visual</small></span>
+              <button class="switch is-alert" id="tglAlert" aria-pressed="false" aria-label="Alternar alerta de mantenimiento"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEMA ============ -->
+  <section class="problem band-day section-pad" id="problema">
+    <div class="wrap problem-grid">
+      <div>
+        <h2>Las luminarias del parque no distinguen entre un sendero lleno y uno vacío</h2>
+        <p class="problem-text">
+          En los senderos de plazas de IRTRA Petapa, como Plaza Mi Fiesta o los senderos
+          intermedios, la iluminación permanece encendida a máxima capacidad durante toda
+          la noche, sin importar si hay visitantes, personal caminando, o absolutamente nadie.
+        </p>
+        <p class="problem-text">
+          Esa constancia tiene un costo: cada hora sin nadie en el camino es energía
+          consumida sin ningún propósito. R.U.T.A. propone que la luminaria responda a lo
+          que realmente ocurre en el sendero, en lugar de ignorarlo.
+        </p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat-callout">
+          <p class="stat-num">100<sup>%</sup></p>
+          <p class="stat-label">de intensidad durante toda la noche, aunque el sendero esté vacío la mayor parte del tiempo.</p>
+        </div>
+        <div class="stat-callout">
+          <p class="stat-num">2</p>
+          <p class="stat-label">objetivos de desarrollo sostenible atendidos: energía asequible (ODS 7) y ciudades sostenibles (ODS 11).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARQUITECTURA ============ -->
+  <section class="architecture band-night section-pad" id="arquitectura">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Cómo se enlazan los sensores con la respuesta del sistema</h2>
+        <p class="muted">Dos entradas leen el entorno de forma continua; una unidad de control decide qué hacer; dos salidas ejecutan esa decisión sobre el sendero.</p>
+      </div>
+
+      <div class="diagram-card">
+        <svg viewBox="0 0 600 320" class="diagram-svg" role="img" aria-label="Diagrama de arquitectura: LDR y PIR como entradas, unidad de control central, LED y buzzer como salidas">
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="var(--amber-500)"/>
+            </marker>
+          </defs>
+
+          <line x1="120" y1="84" x2="248" y2="126" stroke="var(--line-on-dark)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="480" y1="84" x2="352" y2="126" stroke="var(--line-on-dark)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="252" y1="198" x2="124" y2="234" stroke="var(--line-on-dark)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="348" y1="198" x2="476" y2="234" stroke="var(--line-on-dark)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <g class="node-in">
+            <rect x="40" y="20" width="160" height="64" rx="10"/>
+            <text x="120" y="46" class="node-title">Fotorresistencia</text>
+            <text x="120" y="64" class="node-sub">entrada · nivel de luz</text>
+          </g>
+          <g class="node-in">
+            <rect x="400" y="20" width="160" height="64" rx="10"/>
+            <text x="480" y="46" class="node-title">Sensor PIR</text>
+            <text x="480" y="64" class="node-sub">entrada · movimiento</text>
+          </g>
+
+          <g class="node-core">
+            <rect x="200" y="128" width="200" height="70" rx="10"/>
+            <text x="300" y="156" class="node-title node-title-core">Unidad de control</text>
+            <text x="300" y="176" class="node-sub node-sub-core">decide el modo activo</text>
+          </g>
+
+          <g class="node-out">
+            <rect x="40" y="236" width="160" height="64" rx="10"/>
+            <text x="120" y="262" class="node-title">LED de sendero</text>
+            <text x="120" y="280" class="node-sub">salida · intensidad</text>
+          </g>
+          <g class="node-out">
+            <rect x="400" y="236" width="160" height="64" rx="10"/>
+            <text x="480" y="262" class="node-title">Buzzer</text>
+            <text x="480" y="280" class="node-sub">salida · alerta sonora</text>
+          </g>
+        </svg>
+
+        <div class="diagram-legend">
+          <div><span class="dot dot-in"></span>Entradas: leen el entorno de forma continua.</div>
+          <div><span class="dot dot-core"></span>Unidad de control: compara luz, movimiento y botón manual.</div>
+          <div><span class="dot dot-out"></span>Salidas: ejecutan la intensidad o alarma correspondiente.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CÓMO FUNCIONA ============ -->
+  <section class="how band-day section-pad" id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Cuatro decisiones, tomadas en tiempo real</h2>
+        <p class="muted">El sistema evalúa el entorno de forma continua y cambia de modo según lo que detecta, sin intervención manual salvo en mantenimiento.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Detección del entorno</h3>
+            <p>La fotorresistencia (LDR) mide la luz ambiental de forma constante. Mientras haya suficiente luz natural, el sistema mantiene las luminarias apagadas.</p>
+            <span class="step-tag">Sensor: LDR</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>Modo ahorro de energía</h3>
+            <p>Al caer la noche y sin nadie en el camino, la luminaria se mantiene a una intensidad baja, entre 20% y 30%, o apagada, en lugar de encender al máximo sin necesidad.</p>
+            <span class="step-tag">20%–30% de intensidad</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>Modo presencia</h3>
+            <p>El sensor PIR detecta el movimiento de un visitante o empleado cercano y la iluminación sube de inmediato al 100% de intensidad para acompañar su recorrido.</p>
+            <span class="step-tag">Sensor: PIR</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h3>Modo alerta y mantenimiento</h3>
+            <p>Si el personal presiona el botón manual de mantenimiento o emergencia, se activa una señal auditiva de bajo volumen y un aviso visual en el punto exacto del sendero.</p>
+            <span class="step-tag">Botón + buzzer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTES ============ -->
+  <section class="components band-night section-pad" id="componentes">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Cuatro componentes, un solo comportamiento</h2>
+        <p class="muted">Cada pieza cumple una función específica dentro del ciclo de detección y respuesta del sistema.</p>
+      </div>
+
+      <div class="components-grid">
+        <div class="component">
+          <svg class="component-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="20" cy="20" r="9"/>
+            <path d="M20 4v5M20 31v5M4 20h5M31 20h5M9 9l3.5 3.5M27.5 27.5L31 31M31 9l-3.5 3.5M12.5 27.5L9 31" stroke-linecap="round"/>
+          </svg>
+          <h3>Fotorresistencia (LDR)</h3>
+          <p>Mide los niveles de luz ambiental para determinar si es de noche y si el sistema debe estar activo.</p>
+        </div>
+        <div class="component">
+          <svg class="component-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 26c0-8 5.5-13 12-13s12 5 12 13" stroke-linecap="round"/>
+            <path d="M4 30c0-11 7-18 16-18s16 7 16 18" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="20" cy="30" r="2.4" fill="currentColor" stroke="none"/>
+          </svg>
+          <h3>Sensor PIR</h3>
+          <p>Detecta el movimiento de transeúntes a lo largo de los senderos y activa el modo de presencia.</p>
+        </div>
+        <div class="component is-core">
+          <svg class="component-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 16a6 6 0 1 1 12 0c0 3-2 4.3-3 6-1 1.5-1 2.5-1 3.5h-4c0-1-0-2-1-3.5-1-1.7-3-3-3-6z"/>
+            <path d="M17 29h6M18 32.5h4" stroke-linecap="round"/>
+          </svg>
+          <h3>LEDs estándar (o RGB)</h3>
+          <p>Simulan el alumbrado público: brillo bajo o apagado en reposo, 100% de intensidad ante movimiento.</p>
+        </div>
+        <div class="component">
+          <svg class="component-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="13" y="10" width="14" height="18" rx="2"/>
+            <circle cx="20" cy="19" r="3.4"/>
+            <path d="M9 15c-2 1.6-2 8 0 10M31 15c2 1.6 2 8 0 10" stroke-linecap="round"/>
+          </svg>
+          <h3>Buzzer</h3>
+          <p>Alarma sonora de bajo volumen que se activa al presionar el botón, o ante presencia en zonas restringidas de noche.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESPECIFICACIONES ============ -->
+  <section class="specs band-day section-pad" id="especificaciones">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Especificaciones de comportamiento</h2>
+        <p class="muted">Los parámetros que definen cada modo, tal como opera el sistema en el sendero.</p>
+      </div>
+
+      <div class="specs-table" role="table">
+        <div class="specs-row specs-head" role="row">
+          <span role="columnheader">Parámetro</span>
+          <span role="columnheader">Comportamiento</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Modo ahorro de energía</span>
+          <span role="cell">Intensidad de 20%–30%, o apagado, sin presencia detectada</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Modo presencia</span>
+          <span role="cell">Intensidad al 100% mientras el sensor PIR detecta movimiento</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Activación por oscuridad</span>
+          <span role="cell">Lectura continua de la fotorresistencia (LDR)</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Alcance de detección</span>
+          <span role="cell">Sensor PIR orientado al tramo del sendero frente a la luminaria</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Señal de mantenimiento</span>
+          <span role="cell">Botón manual → buzzer de bajo volumen + aviso visual</span>
+        </div>
+        <div class="specs-row" role="row">
+          <span role="cell">Alerta nocturna en zona restringida</span>
+          <span role="cell">Buzzer se activa ante presencia detectada a altas horas de la noche</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IMPACTO / ODS ============ -->
+  <section class="ods band-night section-pad" id="impacto">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A qué objetivos de desarrollo sostenible responde</h2>
+        <p class="muted">R.U.T.A. reduce consumo innecesario sin sacrificar seguridad en espacios públicos de uso nocturno.</p>
+      </div>
+
+      <div class="ods-grid">
+        <div class="ods-card">
+          <div class="ods-badge n7">7</div>
+          <div>
+            <h3>Energía asequible y no contaminante</h3>
+            <p>Al ajustar la intensidad según la necesidad real, se reduce el consumo eléctrico sostenido de las luminarias durante las horas sin visitantes.</p>
+          </div>
+        </div>
+        <div class="ods-card">
+          <div class="ods-badge n11">11</div>
+          <div>
+            <h3>Ciudades y comunidades sostenibles</h3>
+            <p>Un espacio recreativo que gestiona su infraestructura de forma más eficiente, sin dejar de responder a quienes lo recorren de noche.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPO ============ -->
+  <section class="team band-day section-pad" id="equipo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Equipo</h2>
+        <p class="muted">Proyecto final de Tecnología, 5to Bachillerato.</p>
+      </div>
+
+      <div class="team-list">
+        <div class="team-item">
+          <div class="team-avatar">JM</div>
+          <div>
+            <p class="team-name">Jose Maldonado</p>
+            <p class="team-role">Integrante del equipo</p>
+          </div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">DM</div>
+          <div>
+            <p class="team-name">Douglas Mínchez</p>
+            <p class="team-role">Integrante del equipo</p>
+          </div>
+        </div>
+        <div class="team-item">
+          <div class="team-avatar">SC</div>
+          <div>
+            <p class="team-name">Santiago Cacacho</p>
+            <p class="team-role">Integrante del equipo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="band-night">
+    <div class="wrap footer-row">
+      <div>
+        <p class="footer-brand">R.U.T.A.</p>
+        <p class="footer-meta">Recurso de Uso e Iluminación Tecno-Autónoma — proyecto final de Tecnología, 5to Bachillerato, pensado para los senderos de IRTRA Petapa.</p>
+      </div>
+      <a href="#inicio" class="footer-back">Volver arriba</a>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
