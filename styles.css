@@ -162,6 +162,9 @@ body {
   cursor: pointer;
 }
 .w-100 { width: 100%; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 24px; }
 
 /* Glass Cards */
 .glass-card {
@@ -518,6 +521,41 @@ code {
   color: #e2e8f0;
 }
 
+/* Estilos de Reproductor de Video HTML5 (.mp4) */
+.video-player {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: #050811;
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+.video-player:focus {
+  border-color: var(--primary);
+}
+
+.podcast-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.podcast-title {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+.podcast-authors {
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.img-preview {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border-glass);
+}
+
 /* Tech Table */
 .table-responsive {
   overflow-x: auto;
@@ -580,21 +618,6 @@ code {
   margin: 6px 0 12px;
 }
 
-/* Video Wrapper */
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  border-radius: 12px;
-  margin-top: 20px;
-}
-.video-container iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-}
-
 /* Footer */
 .footer {
   padding: 40px 0;
@@ -614,4 +637,9 @@ code {
   }
   .hero-title { font-size: 2.4rem; }
   .nav-links { display: none; }
+  .doc-download-bar {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
 }
