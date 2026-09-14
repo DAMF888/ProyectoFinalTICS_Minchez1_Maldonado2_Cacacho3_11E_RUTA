@@ -2,7 +2,7 @@
 <section class="podcast-card-container">
   <div class="podcast-card">
     
-    <!-- Contenedor del Video / Reproductor -->
+    <!-- Contenedor del Video -->
     <div class="podcast-media">
       <div class="video-responsive">
         <iframe 
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <!-- Contenido y Show Notes del Episodio -->
+    <!-- Contenido y Show Notes -->
     <div class="podcast-content">
       <span class="podcast-badge">🎙️ Episodio Destacado</span>
       <h2 class="podcast-title">Proyecto RUTA: Iluminación Inteligente y Eficiencia Energética</h2>
@@ -37,12 +37,62 @@
         <strong>Hardware:</strong> Arduino Uno R3 | Sensor LDR | PIR | LED RGB | Buzzer | PWM
       </div>
 
-      <!-- Enlaces y Recursos -->
+      <!-- Botones Activadores de Modales -->
       <div class="podcast-actions">
-        <a href="#tinkercad" class="btn-primary">Ver en TinkerCAD</a>
-        <a href="#codigo" class="btn-secondary">Código C++</a>
+        <button class="btn-primary" data-modal-target="#modal-tinkercad">Ver en TinkerCAD</button>
+        <button class="btn-secondary" data-modal-target="#modal-codigo">Código C++</button>
       </div>
 
     </div>
   </div>
 </section>
+
+<!-- Modal 1: Esquema TinkerCAD -->
+<div id="modal-tinkercad" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Cerrar">&times;</button>
+    <h3 class="modal-title">Circuito Interactivo en TinkerCAD</h3>
+    <div class="modal-body">
+      <iframe src="https://www.tinkercad.com/embed/YOUR_EMBED_ID" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Código Fuente C++ -->
+<div id="modal-codigo" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Cerrar">&times;</button>
+    <h3 class="modal-title">Código C++ (Arduino Uno)</h3>
+    <div class="modal-body">
+      <pre><code>// Proyecto RUTA - Control de Iluminación
+const int pinLDR = A0;
+const int pinPIR = 2;
+const int pinLED = 9; // Salida PWM
+const int pinBuzzer = 5;
+const int pinBoton = 3;
+
+void setup() {
+  pinMode(pinPIR, INPUT);
+  pinMode(pinLED, OUTPUT);
+  pinMode(pinBuzzer, OUTPUT);
+  pinMode(pinBoton, INPUT_PULLUP);
+}
+
+void loop() {
+  int luzNivel = analogRead(pinLDR);
+  int presencia = digitalRead(pinPIR);
+
+  // Lógica de Modos Noche / Presencia / Mantenimiento
+  if (luzNivel < 400) { 
+    if (presencia == HIGH) {
+      analogWrite(pinLED, 255); // 100% Intensa
+    } else {
+      analogWrite(pinLED, 64);  // ~25% Ahorro
+    }
+  } else {
+    analogWrite(pinLED, 0);     // Día: Apagado
+  }
+}</code></pre>
+    </div>
+  </div>
+</div>
