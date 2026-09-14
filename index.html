@@ -1,405 +1,516 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioTech Neo — El Futuro Orgánico</title>
-    <style>
-        /* --- VARIABLES Y ESTILOS GLOBALES --- */
-        :root {
-            --bg-deep: #050814;
-            --accent-neon: #00E5FF;
-            --accent-bio: #39FF14;
-            --glass-bg: rgba(15, 23, 42, 0.65);
-            --glass-border: rgba(0, 229, 255, 0.15);
-            --text-main: #F4F4F9;
-            --text-muted: #94A3B8;
-            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- FONDO INTERACTIVO DE PARTÍCULAS --- */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- UI & LAYOUT --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, var(--accent-neon), var(--accent-bio));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            text-align: center;
-            padding: 4rem 1rem 6rem;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #FFF, var(--accent-neon));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
-        }
-
-        /* BOTÓN MAGNÉTICO INNOVADOR */
-        .btn-magnetic {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--bg-deep);
-            background: linear-gradient(90deg, var(--accent-neon), var(--accent-bio));
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-        }
-
-        .btn-magnetic:hover {
-            box-shadow: 0 0 35px rgba(57, 255, 20, 0.6);
-        }
-
-        /* --- BENTO GRID ORGÁNICO --- */
-        .bento-section {
-            margin-top: 4rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .bento-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 2rem;
-            backdrop-filter: blur(16px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-neon);
-        }
-
-        .bento-card.wide {
-            grid-column: span 2;
-        }
-
-        @media (max-width: 768px) {
-            .bento-card.wide { grid-column: span 1; }
-        }
-
-        .bento-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.75rem;
-            color: var(--accent-neon);
-        }
-
-        .bento-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* DEMO INTERACTIVA (SANDBOX) DENTRO DE UNA CARD */
-        .interactive-demo {
-            margin-top: 1.5rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px dashed var(--glass-border);
-            text-align: center;
-        }
-
-        .slider-control {
-            width: 100%;
-            margin: 1rem 0;
-            accent-color: var(--accent-neon);
-        }
-
-        .output-box {
-            font-family: monospace;
-            padding: 0.5rem;
-            background: rgba(0, 229, 255, 0.1);
-            color: var(--accent-bio);
-            border-radius: 8px;
-            word-break: break-all;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 6rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R.U.T.A. - Recurso de Uso e Iluminación Tecno-Autónoma | IRTRA Petapa</title>
+  <meta name="description" content="Sistema de iluminación inteligente e infraestructura autónoma para parques de atracciones. Proyecto tecnológico Colegio Capouilliez.">
+  <!-- Fuentes Google y Tipografía Tech -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Fondo dinámico de partículas -->
-    <canvas id="bg-canvas"></canvas>
+  <!-- Background Glow FX -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
 
-    <header>
-        <div class="logo">SYNAPSE.AI</div>
-        <a href="#demo" class="btn-magnetic" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Probar ahora</a>
-    </header>
+  <!-- Navegación Superior -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-badge">R.U.T.A.</span>
+        <span class="brand-text">IRTRA Petapa</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#contexto">Contexto & ODS</a>
+        <a href="#simulador">Simulador Live</a>
+        <a href="#circuito">Tinkercad & C++</a>
+        <a href="#investigacion">Investigación</a>
+        <a href="#multimedia">Infografía & Podcast</a>
+        <a href="#equipo">Equipo</a>
+      </nav>
+      <a href="#simulador" class="btn btn-primary btn-sm">Probar Circuito</a>
+    </div>
+  </header>
 
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <h1>Tecnología que fluye como un <span>Organismo Vivo</span></h1>
-            <p>Conecta la inteligencia de tu negocio con redes neuronales líquidas y adaptables en tiempo real.</p>
-            <button class="btn-magnetic" id="hero-btn">Desplegar Ecosistema</button>
-        </section>
-
-        <!-- BENTO GRID SECTION -->
-        <section class="bento-section">
-            <h2 class="section-title">Ecosistema Inteligente</h2>
-            
-            <div class="bento-grid">
-                
-                <div class="bento-card">
-                    <h3>01. Adaptación Biomimética</h3>
-                    <p>Nuestros algoritmos imitan el comportamiento de sistemas naturales para auto-optimizarse bajo estrés de datos.</p>
-                </div>
-
-                <div class="bento-card">
-                    <h3>02. Latencia Cero</h3>
-                    <p>Procesamiento distribuido directamente en los nodos perimetrales de la red.</p>
-                </div>
-
-                <!-- Card Ancha con Demo Interactiva -->
-                <div class="bento-card wide" id="demo">
-                    <h3>03. Sandbox en Tiempo Real</h3>
-                    <p>Ajusta el nivel de densidad para simular la capacidad de procesamiento de la red:</p>
-                    
-                    <div class="interactive-demo">
-                        <label for="density-slider">Densidad Neuronal: <span id="slider-value">50</span>%</label>
-                        <input type="range" id="density-slider" class="slider-control" min="10" max="200" value="50">
-                        <div class="output-box" id="neural-status">Estado: Simulación Estable</div>
-                    </div>
-                </div>
-
-                <div class="bento-card">
-                    <h3>04. Seguridad Encriptada</h3>
-                    <p>Protección cuántica integrada en cada capa del ecosistema de datos.</p>
-                </div>
-
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="pill-tag">
+          <span class="dot"></span> Colegio Capouilliez | Laboratorio de Tecnología
+        </div>
+        <h1 class="hero-title">Recurso de Uso e Iluminación <span class="gradient-text">Tecno-Autónoma</span></h1>
+        <p class="hero-description">
+          Un sistema mecatrónico eficiente para senderos y plazas en IRTRA Petapa. Automatización inteligente con Arduino, sensores LDR y PIR para maximizar la seguridad y optimizar la huella energética.
+        </p>
+        <div class="hero-actions">
+          <a href="#simulador" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Simulador en Tiempo Real
+          </a>
+          <a href="#investigacion" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Documentos Word / PDF
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">ODS 7 & 11</span>
+            <span class="stat-label">Impacto Sostenible</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">C++ Puro Tinkercad</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">3 Modos</span>
+            <span class="stat-label">Conmutación Eficiente</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="glass-card hero-card">
+          <div class="card-header-badge">
+            <span class="badge-status active"></span> Sistema en Línea
+          </div>
+          <div class="circuit-preview-visual">
+            <div class="micro-chip">
+              <span class="chip-title">ARDUINO UNO R3</span>
+              <div class="chip-pins">
+                <span>A0: LDR</span>
+                <span>D2: PIR</span>
+                <span>D3: BTN</span>
+                <span>D6: BUZZER</span>
+                <span>D9-11: RGB</span>
+              </div>
             </div>
-        </section>
-    </main>
+            <div class="led-indicator-glow" id="heroLedGlow"></div>
+          </div>
+          <div class="hero-card-footer">
+            <span class="tech-text">IRTRA Petapa • Monitoreo Lumínico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2026 SYNAPSE.AI — Rediseñando la tecnología del mañana.</p>
-    </footer>
+  <!-- Sección Contexto y ODS -->
+  <section id="contexto" class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Justificación y Alineación Estratégica</h2>
+        <p class="section-subtitle">Afrontando el desafío de eficiencia energética y descarbonización en infraestructuras recreativas a gran escala.</p>
+      </div>
 
-    <!-- SCRIPT INTERACTIVO Y CANVAS DE FONDO -->
-    <script>
-        /* --- 1. CANVAS DINÁMICO DE PARTÍCULAS INTERACTIVAS --- */
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+      <div class="grid grid-3">
+        <div class="glass-card feature-card">
+          <div class="icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          </div>
+          <h3>Diagnóstico Energético</h3>
+          <p>
+            Las emisiones de Alcance 2 representan cerca del 67% al 68% del perfil de GEI en parques temáticos por consumo eléctrico continuo de la red nacional en horas de fuera de temporada y noches inactivas.
+          </p>
+        </div>
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        <div class="glass-card feature-card">
+          <div class="icon-box ods-7">
+            <span class="ods-number">7</span>
+          </div>
+          <h3>ODS 7: Energía Limpia</h3>
+          <p>
+            Promueve la transición hacia fuentes renovables fotovoltaicas y la optimización de cargas activas mediante luminarias autónomas aisladas controladas por sensores.
+          </p>
+        </div>
 
-        let particles = [];
-        let mouse = { x: width / 2, y: height / 2, radius: 150 };
+        <div class="glass-card feature-card">
+          <div class="icon-box ods-11">
+            <span class="ods-number">11</span>
+          </div>
+          <h3>ODS 11: Comunidades Sostenibles</h3>
+          <p>
+            Garantiza espacios públicos y senderos peatonales iluminados a demanda, aumentando la seguridad pasiva y previniendo zonas oscuras de riesgo para visitantes y personal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initParticles();
-        });
+  <!-- Simulador Interactivo Web -->
+  <section id="simulador" class="section alt-bg">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Simulador Interactivo del Circuito</h2>
+        <p class="section-subtitle">Interactúa con las variables del entorno para comprobar la respuesta exacta del firmware C++ en tiempo real.</p>
+      </div>
 
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
+      <div class="glass-card simulator-container">
+        <div class="simulator-controls">
+          <div class="control-group">
+            <label for="ldrSlider">Sensor LDR (Nivel de Luz Ambiental): <span id="ldrValueDisplay" class="value-highlight">200</span></label>
+            <input type="range" id="ldrSlider" min="0" max="1000" value="200" class="slider">
+            <div class="slider-labels">
+              <span>0 (Noche Cerrada)</span>
+              <span>500 (Umbral)</span>
+              <span>1000 (Día Pleno)</span>
+            </div>
+          </div>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.size = Math.random() * 2 + 1;
-            }
+          <div class="control-row">
+            <div class="control-toggle-card">
+              <span class="toggle-title">Sensor PIR (Movimiento Peatonal)</span>
+              <label class="switch">
+                <input type="checkbox" id="pirToggle">
+                <span class="slider-toggle round"></span>
+              </label>
+            </div>
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
+            <div class="control-toggle-card">
+              <span class="toggle-title">Botón Mantenimiento (Prioridad Pin 3)</span>
+              <button id="btnMaintenance" class="btn btn-warning">Pulsar Botón</button>
+            </div>
+          </div>
+        </div>
 
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-
-                // Interacción con el cursor
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < mouse.radius) {
-                    let angle = Math.atan2(dy, dx);
-                    let force = (mouse.radius - distance) / mouse.radius;
-                    this.x -= Math.cos(angle) * force * 3;
-                    this.y -= Math.sin(angle) * force * 3;
-                }
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = '#00E5FF';
-                ctx.fill();
-            }
-        }
-
-        function initParticles(count = 70) {
-            particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-
-            // Dibujar líneas conectoras entre partículas cercanas
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(0, 229, 255, ${1 - dist / 120})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        initParticles();
-        animate();
-
-
-        /* --- 2. EFECTO MAGNÉTICO EN BOTONES --- */
-        const magneticBtns = document.querySelectorAll('.btn-magnetic');
-
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
-
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0px, 0px)';
-            });
-        });
-
-
-        /* --- 3. LOGICA DE LA DEMO INTERACTIVA (SANDBOX) --- */
-        const slider = document.getElementById('density-slider');
-        const sliderVal = document.getElementById('slider-value');
-        const statusBox = document.getElementById('neural-status');
-
-        slider.addEventListener('input', (e) => {
-            const val = e.target.value;
-            sliderVal.textContent = val;
+        <!-- Consola y Visualizador de Salidas -->
+        <div class="simulator-output">
+          <div class="output-status-panel">
+            <div class="status-header">Estado del Sistema R.U.T.A.</div>
+            <div id="modeBadge" class="mode-badge mode-night">MODO 2: NOCHE - REPOSO</div>
             
-            // Alterar la cantidad de partículas del canvas en tiempo real
-            initParticles(parseInt(val));
+            <div class="visual-actuators">
+              <div class="actuator-box">
+                <span class="actuator-label">Luminaria LED RGB</span>
+                <div id="simulatedLed" class="simulated-led led-off"></div>
+                <span id="ledStateText" class="actuator-value">Apagado / Tenue</span>
+              </div>
 
-            // Cambiar respuesta visual según valor
-            if (val > 140) {
-                statusBox.textContent = "Estado: Sobrecarga Neuronal Reactiva";
-                statusBox.style.color = "#FF2A85";
-            } else if (val < 30) {
-                statusBox.textContent = "Estado: Modo Ahorro de Energía";
-                statusBox.style.color = "#94A3B8";
-            } else {
-                statusBox.textContent = "Estado: Simulación Estable";
-                statusBox.style.color = "var(--accent-bio)";
-            }
-        });
-    </script>
+              <div class="actuator-box">
+                <span class="actuator-label">Buzzer Acústico</span>
+                <div id="simulatedBuzzer" class="simulated-buzzer">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </div>
+                <span id="buzzerStateText" class="actuator-value">Silencio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monitor Serie C++ Simulado -->
+          <div class="serial-monitor">
+            <div class="serial-header">
+              <span>Monitor Serie Arduino (9600 baud)</span>
+              <button id="btnClearSerial" class="btn-text">Limpiar</button>
+            </div>
+            <pre id="serialLog" class="serial-log">Nivel de Luz: 200 | Movimiento: 0
+Nivel de Luz: 200 | Movimiento: 0</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Circuito Tinkercad & Código C++ -->
+  <section id="circuito" class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Esquema Mecatrónico y Código C++</h2>
+        <p class="section-subtitle">Diseñado estrictamente en Tinkercad Circuits con lenguaje C++ nativo para Arduino Uno R3.</p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="glass-card">
+          <h3>Arquitectura de Conexión en Protoboard</h3>
+          <ul class="tech-list">
+            <li><strong>Microcontrolador:</strong> Arduino Uno R3 / Nano 3.0 operando a 5V/6V regulados.</li>
+            <li><strong>Sensor LDR:</strong> Entrada Analógica <code>A0</code> mediante divisor de tensión.</li>
+            <li><strong>Sensor PIR:</strong> Entrada Digital <code>Pin 2</code> para detección infrarroja de movimiento.</li>
+            <li><strong>Botón Manual:</strong> Entrada Digital <code>Pin 3</code> en modo <code>INPUT_PULLUP</code> interno.</li>
+            <li><strong>Zumbador / Buzzer:</strong> Salida Digital <code>Pin 6</code> con señal de modulación acústica.</li>
+            <li><strong>Luminaria RGB:</strong> Salidas PWM en <code>Pin 9 (Rojo)</code>, <code>Pin 10 (Verde)</code>, <code>Pin 11 (Azul)</code>.</li>
+          </ul>
+          <div class="video-preview-wrapper">
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/videoseries?list=PL" title="Funcionamiento Tinkercad R.U.T.A." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card code-card">
+          <div class="code-header">
+            <span>proyecto_ruta.cpp (C++ Tinkercad)</span>
+            <button id="btnCopyCode" class="btn btn-secondary btn-sm">Copiar Código</button>
+          </div>
+          <pre><code id="cppCodeBlock" class="language-cpp">// =================================================================
+// PROYECTO: Sistema Eficiente de Iluminación Nocturna - IRTRA
+// LENGUAJE: C++ Puro (Tinkercad Circuits)
+// =================================================================
+
+const int PIN_LDR = A0;       // Sensor de Luz Ambiental
+const int PIN_PIR = 2;        // Sensor de Movimiento PIR
+const int PIN_BUTTON = 3;     // Botón Mantenimiento / Emergencia
+
+const int PIN_BUZZER = 6;     // Buzzer para señales sonoras
+const int PIN_RGB_R = 9;      // Pin Rojo (PWM)
+const int PIN_RGB_G = 10;     // Pin Verde (PWM)
+const int PIN_RGB_B = 11;     // Pin Azul (PWM)
+
+const int UMBRAL_NOCHE = 500; // Umbral de Oscuridad
+
+void setup() {
+  pinMode(PIN_PIR, INPUT);
+  pinMode(PIN_BUTTON, INPUT_PULLUP);
+  
+  pinMode(PIN_BUZZER, OUTPUT);
+  pinMode(PIN_RGB_R, OUTPUT);
+  pinMode(PIN_RGB_G, OUTPUT);
+  pinMode(PIN_RGB_B, OUTPUT);
+  
+  Serial.begin(9600);
+}
+
+void establecerColor(int rojo, int verde, int azul) {
+  analogWrite(PIN_RGB_R, rojo);
+  analogWrite(PIN_RGB_G, verde);
+  analogWrite(PIN_RGB_B, azul);
+}
+
+void loop() {
+  int nivelLuz = analogRead(PIN_LDR);
+  int movimiento = digitalRead(PIN_PIR);
+  int botonPresionado = (digitalRead(PIN_BUTTON) == LOW);
+
+  Serial.print("Nivel de Luz: ");
+  Serial.print(nivelLuz);
+  Serial.print(" | Movimiento: ");
+  Serial.println(movimiento);
+
+  // MODO 1: Botón de Mantenimiento Presionado (Prioridad)
+  if (botonPresionado) {
+    establecerColor(0, 0, 255); // Luz Azul (Modo Mantenimiento)
+    tone(PIN_BUZZER, 800, 100);  // Tono de confirmación
+    delay(200);
+    return;
+  }
+
+  // MODO 2: Es de Noche
+  if (nivelLuz < UMBRAL_NOCHE) {
+    if (movimiento == HIGH) {
+      establecerColor(255, 255, 255); // Blanco 100% Presencia
+      noTone(PIN_BUZZER);
+    } else {
+      establecerColor(0, 0, 0);       // Reposo Ahorro
+      noTone(PIN_BUZZER);
+    }
+  } 
+  // MODO 3: Es de Día
+  else {
+    establecerColor(0, 0, 0);         // Apagado Total
+    noTone(PIN_BUZZER);
+  }
+
+  delay(100);
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Investigación Formal & Matriz Técnica -->
+  <section id="investigacion" class="section alt-bg">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Documento Formal de Investigación</h2>
+        <p class="section-subtitle">Estudio de ingeniería con 5 temas principales, 18 subtemas, normas APA y matriz de integración técnica.</p>
+      </div>
+
+      <div class="glass-card">
+        <div class="doc-download-bar">
+          <div class="doc-info">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <div>
+              <h4>Informe Técnico Completo - IRTRA Petapa</h4>
+              <p>Formato Word (.docx) y PDF con diseño de páginas horizontales y citas bibliográficas nativas.</p>
+            </div>
+          </div>
+          <div class="doc-buttons">
+            <a href="archivo WORD tics final 3 1.pdf" target="_blank" class="btn btn-primary btn-sm">Abrir PDF</a>
+            <a href="archivo WORD tics final 3 1.docx" download class="btn btn-secondary btn-sm">Descargar Word (.docx)</a>
+          </div>
+        </div>
+
+        <h3 class="mt-4">Matriz de Integración Técnica de Subsistemas</h3>
+        <div class="table-responsive">
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th>Subsistema</th>
+                <th>Sensor / Dispositivo</th>
+                <th>Cableado Especificado</th>
+                <th>Tensión</th>
+                <th>Protocolo / Interfaz</th>
+                <th>Normativa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Iluminación Eficiente</td>
+                <td>Fotocelda IoT / Regulador Dimmable</td>
+                <td>Cobre 2x2.08 mm² (THHN)</td>
+                <td>120/220 V CA</td>
+                <td>NEMA / Zhaga / Modbus</td>
+                <td>NOM-031-ENER / NOM-001</td>
+              </tr>
+              <tr>
+                <td>Iluminación Autónoma</td>
+                <td>LDR + PIR + Arduino Uno R3</td>
+                <td>Flexible 2x1.5 mm²</td>
+                <td>12 V CC (Batería Litio)</td>
+                <td>Entradas GPIO Digital/Analógica</td>
+                <td>Estándar Prototipado</td>
+              </tr>
+              <tr>
+                <td>Intrusión y Alarma</td>
+                <td>Infrarrojo Pasivo Dual Anti-enmascaramiento</td>
+                <td>Apantallado 4x0.22 mm²</td>
+                <td>12 V CC (Central IP)</td>
+                <td>Bus RS-485 / IP</td>
+                <td>Grado 3 / UNE-EN 50131</td>
+              </tr>
+              <tr>
+                <td>Circuito Cerrado (CCTV)</td>
+                <td>Cámara IP Minidomo 4K Antivandálica</td>
+                <td>UTP/FTP Categoría 6 / Fibra</td>
+                <td>PoE (48 V CC) / 12 V CC</td>
+                <td>Ethernet TCP/IP / ONVIF</td>
+                <td>ISO/IEC 11801</td>
+              </tr>
+              <tr>
+                <td>Control de Accesos</td>
+                <td>Lector RFID / Electrocerradura</td>
+                <td>Apantallado 6x0.22 mm²</td>
+                <td>12 V CC / 24 V CC</td>
+                <td>Wiegand / OSDP / IP</td>
+                <td>Directivas CE</td>
+              </tr>
+              <tr>
+                <td>Detección Incendios</td>
+                <td>Detector Óptico Humo Direccionable</td>
+                <td>2x1.5 mm² Resistente al Fuego</td>
+                <td>24 V CC (Bucle)</td>
+                <td>Protocolo Propietario Bucle</td>
+                <td>EN 54-2 / EN 54-7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Infografía y Podcast -->
+  <section id="multimedia" class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Infografía Ilustrativa y Podcast</h2>
+        <p class="section-subtitle">Recursos multimedia integrados para la comunicación del proyecto.</p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Tarjeta Infografía -->
+        <div class="glass-card">
+          <div class="card-header-badge">Infografía Ejecutiva</div>
+          <h3>Resumen Visual del Proyecto</h3>
+          <p>Infografía diseñada con avatares de IA generativos, esquema de Tinkercad y matriz de componentes.</p>
+          <div class="infographic-preview">
+            <img src="Infografía Final de Proyecto TICS.pdf" alt="Vista previa Infografía R.U.T.A." onerror="this.src='https://via.placeholder.com/600x400/101828/00f2fe?text=Infograf%C3%ADa+Proyecto+R.U.T.A.+PDF';">
+          </div>
+          <div class="mt-3">
+            <a href="Infografía Final de Proyecto TICS.pdf" target="_blank" class="btn btn-primary w-100">Ver Infografía Completa (PDF)</a>
+          </div>
+        </div>
+
+        <!-- Tarjeta Podcast -->
+        <div class="glass-card">
+          <div class="card-header-badge">Podcast Informativo</div>
+          <h3>Episodio Especial: Proyecto R.U.T.A.</h3>
+          <p>Duración: 2 min 58 s. Análisis detallado sobre la descarbonización en parques recreativos y la lógica del prototipo.</p>
+          
+          <div class="audio-player-card mt-4">
+            <div class="podcast-info">
+              <span class="podcast-title">R.U.T.A. - Iluminación Inteligente IRTRA</span>
+              <span class="podcast-authors">Maldonado • Mínchez • López</span>
+            </div>
+            <audio controls class="custom-audio-player w-100 mt-3">
+              <source src="podcast_ruta.mp3" type="audio/mpeg">
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+
+          <div class="external-links-box mt-4">
+            <h4>Enlaces de Verificación Oficial</h4>
+            <div class="btn-group-vertical">
+              <a href="https://github.com" target="_blank" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                Repositorio en GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Equipo -->
+  <section id="equipo" class="section alt-bg">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="section-title">Equipo de Trabajo</h2>
+        <p class="section-subtitle">Estudiantes de Undécimo Grado Sección "E" - Colegio Capouilliez.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="glass-card team-card">
+          <div class="avatar-box">
+            <div class="avatar-placeholder">JM</div>
+          </div>
+          <h3>José Andrés Maldonado</h3>
+          <span class="team-role">Desarrollador Firmware & C++</span>
+          <p>Programación del microcontrolador Arduino en Tinkercad Circuits y estructuración de la landing page.</p>
+        </div>
+
+        <div class="glass-card team-card">
+          <div class="avatar-box">
+            <div class="avatar-placeholder">DM</div>
+          </div>
+          <h3>Douglas Alejandro Mínchez</h3>
+          <span class="team-role">Investigación & Documentación</span>
+          <p>Elaboración del informe técnico formal, diagnóstico de emisiones GEI y modelado energético.</p>
+        </div>
+
+        <div class="glass-card team-card">
+          <div class="avatar-box">
+            <div class="avatar-placeholder">SL</div>
+          </div>
+          <h3>Santiago López Cacacho</h3>
+          <span class="team-role">Diseño Multimedia & Audio</span>
+          <p>Creación de infografía con avatares IA, edición del podcast explicativo y matriz técnica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p><strong>Proyecto Final R.U.T.A.</strong> - Laboratorio de Tecnología • Colegio Capouilliez</p>
+      <p class="footer-subtext">Prof. Eswin Godoy • Guatemala, Septiembre de 2026</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
