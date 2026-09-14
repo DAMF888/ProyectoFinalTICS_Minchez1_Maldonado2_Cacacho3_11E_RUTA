@@ -1,1 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTech Neo — El Futuro Orgánico</title>
+    <style>
+        /* --- VARIABLES Y ESTILOS GLOBALES --- */
+        :root {
+            --bg-deep: #050814;
+            --accent-neon: #00E5FF;
+            --accent-bio: #39FF14;
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(0, 229, 255, 0.15);
+            --text-main: #F4F4F9;
+            --text-muted: #94A3B8;
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- FONDO INTERACTIVO DE PARTÍCULAS --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- UI & LAYOUT --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--accent-neon), var(--accent-bio));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem 6rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #FFF, var(--accent-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* BOTÓN MAGNÉTICO INNOVADOR */
+        .btn-magnetic {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bg-deep);
+            background: linear-gradient(90deg, var(--accent-neon), var(--accent-bio));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .btn-magnetic:hover {
+            box-shadow: 0 0 35px rgba(57, 255, 20, 0.6);
+        }
+
+        /* --- BENTO GRID ORGÁNICO --- */
+        .bento-section {
+            margin-top: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .bento-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-neon);
+        }
+
+        .bento-card.wide {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .bento-card.wide { grid-column: span 1; }
+        }
+
+        .bento-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent-neon);
+        }
+
+        .bento-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* DEMO INTERACTIVA (SANDBOX) DENTRO DE UNA CARD */
+        .interactive-demo {
+            margin-top: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px dashed var(--glass-border);
+            text-align: center;
+        }
+
+        .slider-control {
+            width: 100%;
+            margin: 1rem 0;
+            accent-color: var(--accent-neon);
+        }
+
+        .output-box {
+            font-family: monospace;
+            padding: 0.5rem;
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent-bio);
+            border-radius: 8px;
+            word-break: break-all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 6rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo dinámico de partículas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <div class="logo">SYNAPSE.AI</div>
+        <a href="#demo" class="btn-magnetic" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Probar ahora</a>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>Tecnología que fluye como un <span>Organismo Vivo</span></h1>
+            <p>Conecta la inteligencia de tu negocio con redes neuronales líquidas y adaptables en tiempo real.</p>
+            <button class="btn-magnetic" id="hero-btn">Desplegar Ecosistema</button>
+        </section>
+
+        <!-- BENTO GRID SECTION -->
+        <section class="bento-section">
+            <h2 class="section-title">Ecosistema Inteligente</h2>
+            
+            <div class="bento-grid">
+                
+                <div class="bento-card">
+                    <h3>01. Adaptación Biomimética</h3>
+                    <p>Nuestros algoritmos imitan el comportamiento de sistemas naturales para auto-optimizarse bajo estrés de datos.</p>
+                </div>
+
+                <div class="bento-card">
+                    <h3>02. Latencia Cero</h3>
+                    <p>Procesamiento distribuido directamente en los nodos perimetrales de la red.</p>
+                </div>
+
+                <!-- Card Ancha con Demo Interactiva -->
+                <div class="bento-card wide" id="demo">
+                    <h3>03. Sandbox en Tiempo Real</h3>
+                    <p>Ajusta el nivel de densidad para simular la capacidad de procesamiento de la red:</p>
+                    
+                    <div class="interactive-demo">
+                        <label for="density-slider">Densidad Neuronal: <span id="slider-value">50</span>%</label>
+                        <input type="range" id="density-slider" class="slider-control" min="10" max="200" value="50">
+                        <div class="output-box" id="neural-status">Estado: Simulación Estable</div>
+                    </div>
+                </div>
+
+                <div class="bento-card">
+                    <h3>04. Seguridad Encriptada</h3>
+                    <p>Protección cuántica integrada en cada capa del ecosistema de datos.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SYNAPSE.AI — Rediseñando la tecnología del mañana.</p>
+    </footer>
+
+    <!-- SCRIPT INTERACTIVO Y CANVAS DE FONDO -->
+    <script>
+        /* --- 1. CANVAS DINÁMICO DE PARTÍCULAS INTERACTIVAS --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        let particles = [];
+        let mouse = { x: width / 2, y: height / 2, radius: 150 };
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Interacción con el cursor
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    let angle = Math.atan2(dy, dx);
+                    let force = (mouse.radius - distance) / mouse.radius;
+                    this.x -= Math.cos(angle) * force * 3;
+                    this.y -= Math.sin(angle) * force * 3;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#00E5FF';
+                ctx.fill();
+            }
+        }
+
+        function initParticles(count = 70) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Dibujar líneas conectoras entre partículas cercanas
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${1 - dist / 120})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+
+        /* --- 2. EFECTO MAGNÉTICO EN BOTONES --- */
+        const magneticBtns = document.querySelectorAll('.btn-magnetic');
+
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0px, 0px)';
+            });
+        });
+
+
+        /* --- 3. LOGICA DE LA DEMO INTERACTIVA (SANDBOX) --- */
+        const slider = document.getElementById('density-slider');
+        const sliderVal = document.getElementById('slider-value');
+        const statusBox = document.getElementById('neural-status');
+
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            sliderVal.textContent = val;
+            
+            // Alterar la cantidad de partículas del canvas en tiempo real
+            initParticles(parseInt(val));
+
+            // Cambiar respuesta visual según valor
+            if (val > 140) {
+                statusBox.textContent = "Estado: Sobrecarga Neuronal Reactiva";
+                statusBox.style.color = "#FF2A85";
+            } else if (val < 30) {
+                statusBox.textContent = "Estado: Modo Ahorro de Energía";
+                statusBox.style.color = "#94A3B8";
+            } else {
+                statusBox.textContent = "Estado: Simulación Estable";
+                statusBox.style.color = "var(--accent-bio)";
+            }
+        });
+    </script>
+</body>
+</html>
