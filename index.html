@@ -1,98 +1,781 @@
-<!-- Sección Pódcast / Video: Proyecto RUTA -->
-<section class="podcast-card-container">
-  <div class="podcast-card">
-    
-    <!-- Contenedor del Video -->
-    <div class="podcast-media">
-      <div class="video-responsive">
-        <iframe 
-          src="URL_DE_TU_VIDEO" 
-          title="Pódcast RUTA: Sistema de Iluminación Inteligente" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       R.U.T.A. — Recurso de Uso e Iluminación Tecno-Autónoma
+       Hoja de Estilos Completa con Integración de Pódcast
+       ========================================================================== */
 
-    <!-- Contenido y Show Notes -->
-    <div class="podcast-content">
-      <span class="podcast-badge">🎙️ Episodio Destacado</span>
-      <h2 class="podcast-title">Proyecto RUTA: Iluminación Inteligente y Eficiencia Energética</h2>
-      <p class="podcast-description">
-        Optimizando el consumo eléctrico en parques y senderos comunitarios mediante un sistema automatizado a demanda basado en Arduino Uno.
-      </p>
+    :root {
+      --navy-950: #050B14;
+      --navy-900: #07111E;
+      --navy-800: #0E1B2E;
+      --navy-700: #18283F;
+      --teal-700: #1B4332;
+      --teal-500: #2D6A4F;
+      --teal-300: #52B788;
+      --teal-100: #D8F3DC;
+      --amber-500: #EFA84B;
+      --amber-300: #F6CB8B;
+      --amber-100: #FFF3BF;
+      --alert-500: #E63946;
+      --alert-300: #F87171;
+      --paper: #F8F6F0;
+      --paper-dim: #EFECE6;
+      --paper-card: #FFFFFF;
+      --ink: #0F172A;
+      --ink-soft: #475569;
+      
+      --line-on-dark: rgba(255, 255, 255, 0.12);
+      --line-on-light: rgba(15, 23, 42, 0.1);
+      --glass-bg: rgba(14, 27, 46, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.15);
 
-      <!-- Modos de Operación -->
-      <div class="podcast-highlights">
-        <strong>Lógica y Modos de Operación:</strong>
-        <ul>
-          <li><strong>Modo Noche / Ahorro:</strong> El sensor LDR detecta la oscuridad y mantiene la luz en nivel mínimo (20%-30%).</li>
-          <li><strong>Modo Presencia:</strong> El sensor infrarrojo PIR detecta movimiento y eleva la potencia al 100% mediante salidas PWM.</li>
-          <li><strong>Modo Mantenimiento / Alerta:</strong> Botón manual que activa una señal visual (LED RGB) y sonora (Buzzer) para emergencias o pruebas.</li>
-        </ul>
-      </div>
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
 
-      <!-- Ficha Técnica -->
-      <div class="podcast-tech-stack">
-        <strong>Hardware:</strong> Arduino Uno R3 | Sensor LDR | PIR | LED RGB | Buzzer | PWM
-      </div>
+      --font-head: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
 
-      <!-- Botones Activadores de Modales -->
-      <div class="podcast-actions">
-        <button class="btn-primary" data-modal-target="#modal-tinkercad">Ver en TinkerCAD</button>
-        <button class="btn-secondary" data-modal-target="#modal-codigo">Código C++</button>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Modal 1: Esquema TinkerCAD -->
-<div id="modal-tinkercad" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Cerrar">&times;</button>
-    <h3 class="modal-title">Circuito Interactivo en TinkerCAD</h3>
-    <div class="modal-body">
-      <iframe src="https://www.tinkercad.com/embed/YOUR_EMBED_ID" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- Modal 2: Código Fuente C++ -->
-<div id="modal-codigo" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Cerrar">&times;</button>
-    <h3 class="modal-title">Código C++ (Arduino Uno)</h3>
-    <div class="modal-body">
-      <pre><code>// Proyecto RUTA - Control de Iluminación
-const int pinLDR = A0;
-const int pinPIR = 2;
-const int pinLED = 9; // Salida PWM
-const int pinBuzzer = 5;
-const int pinBoton = 3;
-
-void setup() {
-  pinMode(pinPIR, INPUT);
-  pinMode(pinLED, OUTPUT);
-  pinMode(pinBuzzer, OUTPUT);
-  pinMode(pinBoton, INPUT_PULLUP);
-}
-
-void loop() {
-  int luzNivel = analogRead(pinLDR);
-  int presencia = digitalRead(pinPIR);
-
-  // Lógica de Modos Noche / Presencia / Mantenimiento
-  if (luzNivel < 400) { 
-    if (presencia == HIGH) {
-      analogWrite(pinLED, 255); // 100% Intensa
-    } else {
-      analogWrite(pinLED, 64);  // ~25% Ahorro
+      --wrap: 1160px;
+      --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
     }
-  } else {
-    analogWrite(pinLED, 0);     // Día: Apagado
-  }
-}</code></pre>
+
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--navy-950);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-head);
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    /* Fondos y Texturas */
+    .bg-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(120px);
+      opacity: 0.18;
+    }
+    .bg-glow-1 { top: -100px; left: -100px; background: var(--teal-300); }
+    .bg-glow-2 { top: 40%; right: -150px; background: var(--amber-500); }
+
+    .wrap {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { position: relative; scroll-margin-top: 80px; z-index: 1; }
+
+    .band-night { background: var(--navy-900); color: var(--paper); }
+    .band-day { background: var(--paper); color: var(--ink); }
+    .band-night .muted { color: rgba(248, 246, 240, 0.7); }
+    .band-day .muted { color: var(--ink-soft); }
+
+    .section-pad { padding: 110px 0; }
+    @media (max-width: 768px) { .section-pad { padding: 70px 0; } }
+
+    .section-head { max-width: 680px; margin: 0 0 54px; }
+    .section-head.text-center { margin-left: auto; margin-right: auto; text-align: center; }
+    .section-head h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 700; }
+    .section-head p { margin-top: 14px; font-size: 1.08rem; }
+
+    .section-tag-dark, .section-tag-light {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .section-tag-dark { background: rgba(82, 183, 136, 0.15); color: var(--teal-300); border: 1px solid rgba(82, 183, 136, 0.3); }
+    .section-tag-light { background: rgba(27, 67, 50, 0.1); color: var(--teal-700); border: 1px solid rgba(27, 67, 50, 0.2); }
+
+    .has-grain::before {
+      content: "";
+      position: absolute; inset: 0;
+      z-index: 0; pointer-events: none;
+      opacity: 0.04; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+    .has-grain > * { position: relative; z-index: 1; }
+
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .glass-card {
+      background: var(--paper-card);
+      border: 1px solid var(--line-on-light);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navegación */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0;
+      transition: all 0.3s ease;
+    }
+    .nav.scrolled {
+      padding: 12px 0;
+      background: rgba(7, 17, 30, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line-on-dark);
+    }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--paper); font-family: var(--font-head); font-weight: 700; font-size: 1.25rem; }
+    .brand-logo { color: var(--amber-500); display: flex; align-items: center; }
+    .brand-tag { font-family: var(--font-mono); font-size: 0.72rem; color: rgba(248, 246, 240, 0.5); font-weight: 400; margin-left: 4px; }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(248, 246, 240, 0.75);
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.is-active { color: var(--paper); border-color: var(--amber-500); }
+
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 32px; height: 24px; flex-direction: column; justify-content: space-between; padding: 0;
+    }
+    .nav-toggle span { display: block; height: 2px; width: 100%; background: var(--paper); transition: all 0.25s ease; }
+
+    @media (max-width: 860px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: 0; right: 0; height: 100vh; width: min(80vw, 320px);
+        background: var(--navy-950); flex-direction: column; justify-content: center;
+        gap: 12px; padding: 40px; transform: translateX(100%); transition: transform 0.3s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+      }
+      .nav-links.is-open { transform: translateX(0); }
+      .nav-links a { font-size: 1.1rem; padding: 10px 0; display: block; }
+    }
+
+    /* Hero */
+    .hero { padding: 160px 0 100px; overflow: hidden; }
+    .hero-row { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; }
+    @media (max-width: 960px) {
+      .hero-row { grid-template-columns: 1fr; }
+      .hero { padding-top: 130px; }
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      color: var(--teal-300); background: rgba(82, 183, 136, 0.12);
+      border: 1px solid rgba(82, 183, 136, 0.25);
+      padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-300); box-shadow: 0 0 8px var(--teal-300); }
+
+    .hero h1 { font-size: clamp(2.2rem, 4.2vw, 3.2rem); font-weight: 700; line-height: 1.12; }
+    .text-gradient { background: linear-gradient(135deg, var(--amber-300), var(--amber-500)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .hero-lead { margin-top: 22px; font-size: 1.12rem; color: rgba(248, 246, 240, 0.82); max-width: 48ch; }
+
+    .hero-actions { display: flex; gap: 16px; margin-top: 34px; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+      padding: 13px 26px; border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease;
+    }
+    .btn-solid { background: var(--amber-500); color: var(--navy-950); }
+    .btn-solid:hover { background: var(--amber-300); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239, 168, 75, 0.3); }
+    .btn-ghost { border-color: var(--line-on-dark); color: var(--paper); }
+    .btn-ghost:hover { border-color: var(--paper); background: rgba(255,255,255,0.05); }
+
+    .hero-credit {
+      margin-top: 48px; padding-top: 22px;
+      border-top: 1px solid var(--line-on-dark);
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: rgba(248, 246, 240, 0.55);
+    }
+    .credit-label { display: block; font-size: 0.72rem; text-transform: uppercase; margin-bottom: 6px; color: var(--teal-300); }
+    .credit-names { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .dot-sep { color: var(--amber-500); }
+
+    /* Simulador SVG */
+    .scene-card {
+      background: var(--navy-900);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .scene-header {
+      padding: 16px 20px; background: rgba(5, 11, 20, 0.6);
+      border-bottom: 1px solid var(--line-on-dark);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .scene-title-group { display: flex; align-items: center; gap: 8px; }
+    .live-indicator { width: 8px; height: 8px; border-radius: 50%; background: #10B981; box-shadow: 0 0 10px #10B981; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .scene-card-title { font-family: var(--font-mono); font-size: 0.78rem; color: var(--paper); font-weight: 500; }
+    .scene-tag { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(248, 246, 240, 0.4); }
+
+    .scene-frame { position: relative; aspect-ratio: 4/3; background: #050B14; }
+    .scene-frame svg { width: 100%; height: 100%; }
+
+    .sky-day, .sky-night, .stars, .light-beam { transition: opacity 0.5s ease; }
+    .bulb-glow { transition: opacity 0.4s ease, r 0.4s ease; }
+    .bulb { transition: fill 0.3s ease; }
+    .figure { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; }
+    .figure.hidden { opacity: 0; transform: translate(170px, 195px); }
+    .figure.shown { opacity: 1; transform: translate(135px, 195px); }
+
+    .alert-ring { opacity: 0; }
+    .alert-ring.active { animation: ringPulse 1.2s ease-out infinite; }
+    .alert-ring.active.r2 { animation-delay: 0.4s; }
+    @keyframes ringPulse { 0% { opacity: 0.8; r: 8; } 100% { opacity: 0; r: 30; } }
+
+    .scene-status { padding: 22px; border-top: 1px solid var(--line-on-dark); background: rgba(5, 11, 20, 0.4); }
+    .status-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .status-pill { font-family: var(--font-mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: rgba(239, 168, 75, 0.2); color: var(--amber-300); }
+    .status-mode { font-size: 1.1rem; font-weight: 600; color: var(--paper); }
+    .status-desc { font-size: 0.9rem; color: rgba(248, 246, 240, 0.75); min-height: 2.8em; }
+
+    .status-sensors { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .sensor-badge { font-family: var(--font-mono); font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line-on-dark); }
+    .sensor-label { color: rgba(248, 246, 240, 0.5); }
+    .sensor-val { color: var(--amber-300); font-weight: 600; margin-left: 4px; }
+
+    .scene-controls { padding: 18px 22px; background: var(--navy-950); border-top: 1px solid var(--line-on-dark); display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; justify-content: space-between; align-items: center; }
+    .control-info { display: flex; flex-direction: column; }
+    .control-label { font-size: 0.88rem; font-weight: 500; color: var(--paper); }
+    .control-info small { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(248, 246, 240, 0.45); }
+
+    .switch {
+      width: 48px; height: 26px; border-radius: 20px; background: var(--navy-700);
+      border: 1px solid var(--line-on-dark); position: relative; cursor: pointer; flex-shrink: 0;
+      transition: background 0.25s ease;
+    }
+    .switch::after {
+      content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+      border-radius: 50%; background: var(--paper); transition: transform 0.25s ease;
+    }
+    .switch[aria-pressed="true"] { background: var(--amber-500); }
+    .switch[aria-pressed="true"]::after { transform: translateX(22px); }
+    .switch.is-alert[aria-pressed="true"] { background: var(--alert-500); }
+
+    /* Componentes */
+    .components-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .components-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .components-grid { grid-template-columns: 1fr; } }
+
+    .component-card {
+      position: relative; background: var(--navy-900); border: 1px solid var(--line-on-dark);
+      border-radius: var(--radius-md); padding: 32px 24px; transition: all 0.25s ease;
+    }
+    .component-card:hover { transform: translateY(-4px); border-color: var(--amber-500); }
+    .component-card.is-core { background: var(--navy-800); border-color: var(--teal-300); }
+
+    .component-badge {
+      position: absolute; top: 16px; right: 16px; font-family: var(--font-mono); font-size: 0.65rem;
+      background: var(--teal-300); color: var(--navy-950); padding: 2px 8px; border-radius: 4px; font-weight: 600;
+    }
+    .component-icon { color: var(--amber-300); margin-bottom: 20px; }
+    .component-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--paper); }
+    .component-card p { margin-top: 10px; font-size: 0.92rem; color: rgba(248, 246, 240, 0.7); }
+
+    /* Pódcast - Sección Integrada */
+    .podcast-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: center; }
+    @media (max-width: 880px) { .podcast-grid { grid-template-columns: 1fr; } }
+
+    .podcast-card {
+      padding: 36px;
+      background: var(--navy-800);
+      border: 1px solid var(--line-on-dark);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .podcast-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--amber-300);
+      background: rgba(239, 168, 75, 0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .podcast-player {
+      width: 100%;
+      margin-top: 10px;
+      background: var(--navy-950);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-on-dark);
+    }
+    .podcast-player audio { width: 100%; }
+
+    .podcast-episodes { display: flex; flex-direction: column; gap: 16px; }
+    .episode-item {
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line-on-dark);
+      border-radius: var(--radius-md);
+      transition: border-color 0.2s ease;
+    }
+    .episode-item:hover { border-color: var(--amber-500); }
+    .episode-time { font-family: var(--font-mono); font-size: 0.75rem; color: var(--teal-300); }
+    .episode-title { font-size: 1rem; font-weight: 600; margin-top: 4px; color: var(--paper); }
+
+    /* Equipo */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; } }
+
+    .team-card { padding: 28px; display: flex; align-items: center; gap: 20px; }
+    .team-avatar {
+      width: 54px; height: 54px; border-radius: 50%; background: var(--navy-900); color: var(--amber-300);
+      display: flex; align-items: center; justify-content: center; font-family: var(--font-head);
+      font-weight: 700; font-size: 1.1rem; border: 2px solid var(--amber-500); flex-shrink: 0;
+    }
+    .team-name { font-size: 1.05rem; font-weight: 600; }
+    .team-role { font-size: 0.88rem; color: var(--ink-soft); margin-top: 2px; }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--line-on-dark); padding: 60px 0 40px; }
+    .footer-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
+    .footer-brand { font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; color: var(--paper); }
+    .footer-meta { font-family: var(--font-mono); font-size: 0.8rem; color: rgba(248, 246, 240, 0.5); margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Navegación -->
+  <header class="nav" id="siteNav">
+    <div class="wrap nav-row">
+      <a href="#hero" class="brand">
+        <span class="brand-logo">⚡</span>
+        R.U.T.A.
+        <span class="brand-tag">v2.0</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#simulador">Simulador</a></li>
+        <li><a href="#componentes">Componentes</a></li>
+        <li><a href="#podcast">Pódcast</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+      </ul>
     </div>
-  </div>
-</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero band-night">
+    <div class="wrap hero-row">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Sistema Autónomo de Iluminación
+        </div>
+        <h1>Recurso de Uso e Iluminación <span class="text-gradient">Tecno-Autónoma</span></h1>
+        <p class="hero-lead">Infraestructura sostenible impulsada por fotovoltaica y sensores adaptativos para espacios rurales e interurbanos.</p>
+        <div class="hero-actions">
+          <a href="#simulador" class="btn btn-solid">Probar Simulador</a>
+          <a href="#podcast" class="btn btn-ghost">Escuchar Pódcast</a>
+        </div>
+        <div class="hero-credit">
+          <span class="credit-label">Desarrollado por</span>
+          <div class="credit-names">
+            <span>Equipo R.U.T.A.</span>
+            <span class="dot-sep">•</span>
+            <span>Innovación Comunitaria</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulador SVG Integrado -->
+      <div id="simulador" class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-group">
+            <span class="live-indicator"></span>
+            <span class="scene-card-title">SIMULADOR EN TIEMPO REAL</span>
+          </div>
+          <span class="scene-tag">MCU: ESP32 / ARDUINO</span>
+        </div>
+        <div class="scene-frame">
+          <svg viewBox="0 0 400 300">
+            <rect class="sky-day" width="400" height="300" fill="#38BDF8"/>
+            <rect class="sky-night" width="400" height="300" fill="#050B14"/>
+            <g class="stars" fill="#FFFFFF">
+              <circle cx="50" cy="40" r="1"/><circle cx="120" cy="80" r="1.5"/><circle cx="280" cy="30" r="1"/><circle cx="340" cy="90" r="1.5"/>
+            </g>
+            <polygon class="light-beam" points="200,80 100,280 300,280" fill="#FFF3BF" opacity="0.2"/>
+            <rect x="195" y="80" width="10" height="200" fill="#334155"/>
+            <circle class="bulb-glow" cx="200" cy="80" r="28" fill="#EFA84B" opacity="0.35"/>
+            <circle class="bulb" cx="200" cy="80" r="8" fill="#EFA84B"/>
+            
+            <g class="figure hidden">
+              <circle cx="0" cy="-15" r="6" fill="#F8F6F0"/>
+              <line x1="0" y1="-9" x2="0" y2="10" stroke="#F8F6F0" stroke-width="3"/>
+            </g>
+
+            <rect class="buzzer-body" x="350" y="250" width="16" height="16" rx="4" fill="#22384F"/>
+            <circle class="alert-ring r1" cx="358" cy="258" r="10" stroke="#E63946" stroke-width="2" fill="none"/>
+            <circle class="alert-ring r2" cx="358" cy="258" r="16" stroke="#E63946" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="scene-status">
+          <div class="status-header">
+            <span class="status-pill" id="statusPill">MODO ACTIVO</span>
+            <span class="status-mode" id="modeName">Cargando...</span>
+          </div>
+          <div class="status-desc" id="modeDesc">Estado del sistema en monitoreo...</div>
+          <div class="status-sensors">
+            <div class="sensor-badge"><span class="sensor-label">LDR:</span><span class="sensor-val" id="sLdr">--</span></div>
+            <div class="sensor-badge"><span class="sensor-label">PIR:</span><span class="sensor-val" id="sPir">--</span></div>
+            <div class="sensor-badge"><span class="sensor-label">BUZZER:</span><span class="sensor-val" id="sBuz">--</span></div>
+          </div>
+        </div>
+        <div class="scene-controls">
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-label">Ciclo Nocturno (LDR)</span>
+              <small>Simula ausencia de luz solar</small>
+            </div>
+            <button class="switch" id="tglNight" aria-pressed="true"></button>
+          </div>
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-label">Detección de Presencia (PIR)</span>
+              <small>Simula paso de peatón</small>
+            </div>
+            <button class="switch" id="tglPresence" aria-pressed="false"></button>
+          </div>
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-label">Alerta de Emergencia</span>
+              <small>Activa señal audible y luminosa</small>
+            </div>
+            <button class="switch is-alert" id="tglAlert" aria-pressed="false"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Componentes -->
+  <section id="componentes" class="band-night section-pad">
+    <div class="wrap">
+      <div class="section-head text-center">
+        <span class="section-tag-dark">Hardware & Arquitectura</span>
+        <h2>Módulos del Sistema</h2>
+      </div>
+      <div class="components-grid">
+        <div class="component-card is-core">
+          <span class="component-badge">CORE</span>
+          <h3>Microcontrolador</h3>
+          <p>Gestión de estados, procesamiento de sensores y modulación PWM.</p>
+        </div>
+        <div class="component-card">
+          <h3>Sensor LDR</h3>
+          <p>Detección umbral día/noche para automatización del encendido.</p>
+        </div>
+        <div class="component-card">
+          <h3>Sensor PIR</h3>
+          <p>Detección infrarroja de movimiento para flujo dinámico al 100%.</p>
+        </div>
+        <div class="component-card">
+          <h3>Batería & Panel</h3>
+          <p>Sistema fotovoltaico autónomo de recarga diurna.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Pódcast Integrada -->
+  <section id="podcast" class="band-night section-pad has-grain" style="border-top: 1px solid var(--line-on-dark);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag-dark">Divulgación & Audio</span>
+        <h2>Pódcast R.U.T.A.</h2>
+        <p class="muted">Acompaña las discusiones técnicas, el diseño social del proyecto y las entrevistas sobre soberanía energética.</p>
+      </div>
+
+      <div class="podcast-grid">
+        <div class="podcast-card">
+          <span class="podcast-tag">EPISODIO DESTACADO</span>
+          <h3>Ep. 1: Iluminando el camino autónomo</h3>
+          <p class="muted">Analizamos el impacto de la tecnología adaptativa en la seguridad nocturna de vías rurales y la arquitectura del hardware utilizado.</p>
+          <div class="podcast-player">
+            <audio controls>
+              <source src="#" type="audio/mpeg">
+              Tu navegador no soporta el elemento de audio.
+            </audio>
+          </div>
+        </div>
+
+        <div class="podcast-episodes">
+          <div class="episode-item">
+            <span class="episode-time">12 MIN • EPISODIO 2</span>
+            <div class="episode-title">Gestión Eficiente con Algoritmos PWM</div>
+          </div>
+          <div class="episode-item">
+            <span class="episode-time">18 MIN • EPISODIO 3</span>
+            <div class="episode-title">Sostenibilidad y Baterías LiFePO4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section id="equipo" class="band-day section-pad">
+    <div class="wrap">
+      <div class="section-head text-center">
+        <span class="section-tag-light">Desarrollo</span>
+        <h2>Equipo del Proyecto</h2>
+      </div>
+      <div class="team-grid">
+        <div class="glass-card team-card">
+          <div class="team-avatar">R1</div>
+          <div>
+            <div class="team-name">Ingeniería de Hardware</div>
+            <div class="team-role">Diseño del circuito y sensores</div>
+          </div>
+        </div>
+        <div class="glass-card team-card">
+          <div class="team-avatar">R2</div>
+          <div>
+            <div class="team-name">Desarrollo de Software</div>
+            <div class="team-role">Firmware y control reactivo</div>
+          </div>
+        </div>
+        <div class="glass-card team-card">
+          <div class="team-avatar">R3</div>
+          <div>
+            <div class="team-name">Gestión e Impacto</div>
+            <div class="team-role">Divulgación y sostenibilidad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer band-night">
+    <div class="wrap footer-row">
+      <div>
+        <div class="footer-brand">R.U.T.A.</div>
+        <div class="footer-meta">Recurso de Uso e Iluminación Tecno-Autónoma © 2026</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Lógico -->
+  <script>
+    "use strict";
+
+    /* Navegación */
+    (function() {
+      const nav = document.getElementById('siteNav');
+      const toggle = document.getElementById('navToggle');
+      const menu = document.getElementById('navMenu');
+
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+      });
+
+      toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+
+    /* Resaltado de sección */
+    (function() {
+      const links = Array.from(document.querySelectorAll('.nav-links a'));
+      if (!links.length || !('IntersectionObserver' in window)) return;
+
+      const sectionMap = {};
+      links.forEach(link => {
+        const id = link.getAttribute('href').replace('#', '');
+        const section = document.getElementById(id);
+        if (section) sectionMap[id] = link;
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove('is-active'));
+            const activeLink = sectionMap[entry.target.id];
+            if (activeLink) activeLink.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px' });
+
+      Object.keys(sectionMap).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    })();
+
+    /* Motor del Simulador */
+    (function() {
+      const state = { night: true, presence: false, alert: false };
+
+      const els = {
+        skyDay: document.querySelector('.sky-day'),
+        skyNight: document.querySelector('.sky-night'),
+        stars: document.querySelector('.stars'),
+        lightBeam: document.querySelector('.light-beam'),
+        bulb: document.querySelector('.bulb'),
+        glow: document.querySelector('.bulb-glow'),
+        figure: document.querySelector('.figure'),
+        buzzer: document.querySelector('.buzzer-body'),
+        rings: document.querySelectorAll('.alert-ring'),
+        statusPill: document.getElementById('statusPill'),
+        modeName: document.getElementById('modeName'),
+        modeDesc: document.getElementById('modeDesc'),
+        sLdr: document.getElementById('sLdr'),
+        sPir: document.getElementById('sPir'),
+        sBuz: document.getElementById('sBuz'),
+        tglNight: document.getElementById('tglNight'),
+        tglPresence: document.getElementById('tglPresence'),
+        tglAlert: document.getElementById('tglAlert')
+      };
+
+      if (!els.bulb || !els.tglNight) return;
+
+      function bindToggle(btn, key) {
+        btn.addEventListener('click', () => {
+          state[key] = !state[key];
+          btn.setAttribute('aria-pressed', String(state[key]));
+          render();
+        });
+      }
+
+      bindToggle(els.tglNight, 'night');
+      bindToggle(els.tglPresence, 'presence');
+      bindToggle(els.tglAlert, 'alert');
+
+      function render() {
+        els.skyDay.style.opacity = state.night ? 0 : 1;
+        els.skyNight.style.opacity = state.night ? 1 : 0;
+        els.stars.style.opacity = state.night ? 1 : 0;
+
+        const lampState = !state.night ? 'off' : (state.presence ? 'bright' : 'dim');
+
+        if (lampState === 'off') {
+          els.bulb.setAttribute('fill', '#475569');
+          els.glow.style.opacity = 0;
+          els.glow.setAttribute('r', 10);
+          if (els.lightBeam) els.lightBeam.style.opacity = 0;
+        } else if (lampState === 'dim') {
+          els.bulb.setAttribute('fill', '#EFA84B');
+          els.glow.style.opacity = 0.35;
+          els.glow.setAttribute('r', 28);
+          if (els.lightBeam) els.lightBeam.style.opacity = 0.15;
+        } else {
+          els.bulb.setAttribute('fill', '#FFF3BF');
+          els.glow.style.opacity = 0.85;
+          els.glow.setAttribute('r', 48);
+          if (els.lightBeam) els.lightBeam.style.opacity = 0.55;
+        }
+
+        if (els.figure) {
+          els.figure.classList.toggle('shown', state.presence);
+          els.figure.classList.toggle('hidden', !state.presence);
+        }
+
+        if (els.buzzer) {
+          els.buzzer.setAttribute('fill', state.alert ? '#E63946' : '#22384F');
+          els.rings.forEach(r => r.classList.toggle('active', state.alert));
+        }
+
+        let mode, desc, pillText = 'MODO ACTIVO';
+        
+        if (state.alert) {
+          mode = 'Modo Alerta y Mantenimiento';
+          desc = 'El personal de soporte activó la señal de asistencia: el buzzer emite alerta sonora y la farola emite indicación visual geolocalizada.';
+          pillText = 'ALERTA TÉCNICA';
+        } else if (!state.night) {
+          mode = 'Reposo Diurno Autosostenible';
+          desc = 'La fotorresistencia (LDR) registra luz solar suficiente: la luminaria permanece completamente apagada optimizando energía.';
+          pillText = 'DIA / REPOSO';
+        } else if (state.presence) {
+          mode = 'Modo Presencia Activa (100% Flujo)';
+          desc = 'El sensor PIR detectó un transeúnte en la ruta: la luminaria se eleva al 100% de potencia acompañando su recorrido seguro.';
+          pillText = 'DETECCIÓN PIR';
+        } else {
+          mode = 'Modo Ahorro de Energía (20% - 30%)';
+          desc = 'Es de noche y el sendero está desierto: la iluminación atenúa su flujo al mínimo para conservar energía sin dejar a oscuras la ruta.';
+          pillText = 'AHORRO NOCTURNO';
+        }
+
+        els.modeName.textContent = mode;
+        els.modeDesc.textContent = desc;
+        if (els.statusPill) els.statusPill.textContent = pillText;
+
+        els.sLdr.textContent = state.night ? 'oscuridad' : 'luz diurna';
+        els.sPir.textContent = state.presence ? 'movimiento' : 'sin movimiento';
+        els.sBuz.textContent = state.alert ? 'activo' : 'inactivo';
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>
